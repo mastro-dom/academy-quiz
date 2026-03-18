@@ -280,10 +280,15 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text)}
       <div class="result-stat"><div class="result-stat-val" style="color:var(--wrong)" id="res-wrong">0</div><div class="result-stat-label">Sbagliate</div></div>
       <div class="result-stat"><div class="result-stat-val" id="res-time">0s</div><div class="result-stat-label">Tempo medio</div></div>
     </div>
-    <div class="result-code-area">
-      <div class="result-code-label">📋 Copia questo codice e incollalo nella chat di Teams</div>
-      <div class="result-code" id="res-code"></div>
-      <button class="btn btn-sm" id="copy-btn" style="margin-top:10px;border-color:var(--correct);color:var(--correct)" onclick="copyCode()">📋 Copia codice</button>
+    <div id="cloud-status" style="margin-top:18px;padding:12px;border-radius:8px;text-align:center;font-size:.85rem">
+      <span id="cloud-msg" style="color:var(--text-dim)">⏳ Invio risultato...</span>
+    </div>
+    <div id="fallback-code" style="display:none">
+      <div class="result-code-area">
+        <div class="result-code-label">📋 Invio automatico fallito. Copia questo codice nella chat di Teams</div>
+        <div class="result-code" id="res-code"></div>
+        <button class="btn btn-sm" id="copy-btn" style="margin-top:10px;border-color:var(--correct);color:var(--correct)" onclick="copyCode()">📋 Copia codice</button>
+      </div>
     </div>
   </div>
   <div style="margin-top:20px;text-align:center">
@@ -291,19 +296,33 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text)}
   </div>
 </div>
 
-<!-- ADMIN: PASTE CODES -->
+<!-- ADMIN -->
 <div class="screen" id="screen-admin">
   <div class="admin-section">
     <div class="section-title">🔒 Area Facilitatore</div>
-    <p class="section-desc">Incolla i codici degli studenti dalla chat di Teams (uno per riga)</p>
-    <textarea class="score-textarea" id="codes-input" placeholder="Incolla qui i codici risultato, uno per riga..."></textarea>
-    <div id="admin-msg" style="display:none;font-size:.85rem;color:var(--wrong);margin-top:8px"></div>
-    <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
-      <button class="btn btn-sm btn-primary" onclick="launchPodium()">🏆 Genera Classifica</button>
-      <button class="btn btn-sm btn-outline" onclick="showReport()">📊 Report completo</button>
-      <button class="btn btn-sm btn-outline" onclick="exportCSV()">⬇️ Esporta CSV</button>
+    <p class="section-desc">I risultati degli studenti arrivano automaticamente</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px">
+      <button class="btn btn-sm btn-primary" onclick="loadFromCloud()">☁️ Carica risultati</button>
+      <button class="btn btn-sm btn-primary" onclick="launchPodiumFromCloud()">🏆 Genera Classifica</button>
+      <button class="btn btn-sm btn-outline" onclick="showReportFromCloud()">📊 Report completo</button>
+      <button class="btn btn-sm btn-outline" onclick="exportCSVFromCloud()">⬇️ Esporta CSV</button>
+      <button class="btn btn-sm btn-outline" onclick="resetCloud()">🗑️ Reset dati</button>
       <button class="btn btn-sm btn-outline" onclick="goHome()">← Home</button>
     </div>
+    <div id="cloud-admin-status" style="font-size:.85rem;margin-bottom:12px;color:var(--text-dim)"></div>
+    <div id="cloud-entries-count" style="font-size:.85rem;margin-bottom:16px;display:none">
+      <span style="color:var(--green);font-weight:700" id="entries-count">0</span> risultati ricevuti
+    </div>
+    <details style="margin-top:12px;border:1px solid var(--border);border-radius:8px;padding:12px">
+      <summary style="font-size:.82rem;color:var(--text-muted);cursor:pointer">Fallback manuale (incolla codici)</summary>
+      <div style="margin-top:10px">
+        <textarea class="score-textarea" id="codes-input" placeholder="Incolla qui i codici risultato, uno per riga..."></textarea>
+        <div style="margin-top:8px;display:flex;gap:10px">
+          <button class="btn btn-sm btn-outline" onclick="loadManual()">Carica da codici</button>
+        </div>
+      </div>
+    </details>
+    <div id="admin-msg" style="display:none;font-size:.85rem;color:var(--wrong);margin-top:8px"></div>
     <div class="report-section" id="report-section" style="display:none"></div>
   </div>
 </div>
@@ -374,6 +393,53 @@ let state={playerName:'',avatar:null,currentQ:0,score:0,correct:0,questionTimes:
 let allEntries=[];
 const ADMIN_PW='avvaleacademy2026';
 let adminAuth=false;
+
+// JSONBIN CONFIG
+const JSONBIN_ID='69ba732ab7ec241ddc7c05f8';
+const JSONBIN_KEY='$2a$10$J/Cx7B11BjfNT8ta0aMppOVTR3jwO0x8AKWDmVBxV6pytmjhrpHWK';
+const JSONBIN_URL='https://api.jsonbin.io/v3/b/'+JSONBIN_ID;
+
+// CLOUD: PUSH RESULT
+async function pushToCloud(entry){
+  try{
+    const readRes=await fetch(JSONBIN_URL+'/latest',{headers:{'X-Master-Key':JSONBIN_KEY}});
+    const readData=await readRes.json();
+    const current=readData.record||{results:[]};
+    current.results.push(entry);
+    const writeRes=await fetch(JSONBIN_URL,{method:'PUT',headers:{'Content-Type':'application/json','X-Master-Key':JSONBIN_KEY},body:JSON.stringify(current)});
+    return writeRes.ok;
+  }catch(e){return false;}
+}
+
+// CLOUD: READ ALL RESULTS
+async function readFromCloud(){
+  try{
+    const res=await fetch(JSONBIN_URL+'/latest',{headers:{'X-Master-Key':JSONBIN_KEY}});
+    const data=await res.json();
+    const results=(data.record||{}).results||[];
+    return results.sort((a,b)=>b.s!==a.s?b.s-a.s:(a.avg||999)-(b.avg||999));
+  }catch(e){return[];}
+}
+
+// CLOUD: RESET
+let resetPending=false;
+async function resetCloud(){
+  if(!resetPending){
+    resetPending=true;
+    document.getElementById('cloud-admin-status').innerHTML='<span style="color:var(--wrong)">⚠️ Clicca di nuovo "Reset dati" per confermare la cancellazione</span>';
+    setTimeout(()=>{resetPending=false;document.getElementById('cloud-admin-status').innerHTML='';},5000);
+    return;
+  }
+  resetPending=false;
+  document.getElementById('cloud-admin-status').innerHTML='⏳ Reset in corso...';
+  try{
+    await fetch(JSONBIN_URL,{method:'PUT',headers:{'Content-Type':'application/json','X-Master-Key':JSONBIN_KEY},body:JSON.stringify({results:[]})});
+    document.getElementById('cloud-admin-status').innerHTML='<span style="color:var(--correct)">✅ Dati resettati</span>';
+    document.getElementById('cloud-entries-count').style.display='none';
+    allEntries=[];
+    document.getElementById('report-section').style.display='none';
+  }catch(e){showAdminMsg('Errore nel reset');}
+}
 
 // NAV
 function showScreen(id){
@@ -464,7 +530,7 @@ function submitAnswer(idx){
 
 // FEEDBACK & RESULTS
 function submitFeedback(){state.suggestion=document.getElementById('fb-suggestion').value.trim().substring(0,250);showResultsScreen();}
-function showResultsScreen(){
+async function showResultsScreen(){
   const avg=state.questionTimes.length?(state.questionTimes.reduce((a,b)=>a+b,0)/state.questionTimes.length).toFixed(1):0;
   document.getElementById('res-avatar').textContent=AVATARS[state.avatar].emoji;
   document.getElementById('res-name').textContent=state.playerName;
@@ -473,8 +539,21 @@ function showResultsScreen(){
   document.getElementById('res-wrong').textContent=QUESTIONS.length-state.correct;
   document.getElementById('res-time').textContent=avg+'s';
   const data={v:2,n:state.playerName,a:state.avatar,s:state.score,c:state.correct,t:QUESTIONS.length,avg:parseFloat(avg),qa:state.answers,r:state.ratings,sg:state.suggestion,d:'day1',ts:Date.now()};
-  document.getElementById('res-code').textContent=btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+  const code=btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+  document.getElementById('res-code').textContent=code;
+  // Show screen immediately
   showScreen('screen-results');
+  document.getElementById('cloud-status').style.display='block';
+  document.getElementById('fallback-code').style.display='none';
+  document.getElementById('cloud-msg').innerHTML='<span style="color:var(--text-dim)">⏳ Invio risultato...</span>';
+  // Push to cloud
+  const ok=await pushToCloud(data);
+  if(ok){
+    document.getElementById('cloud-msg').innerHTML='<span style="color:var(--correct)">✅ Risultato inviato! Il facilitatore lo vedrà nella classifica.</span>';
+  }else{
+    document.getElementById('cloud-msg').innerHTML='<span style="color:var(--wrong)">⚠️ Invio fallito. Copia il codice qui sotto e incollalo nella chat di Teams.</span>';
+    document.getElementById('fallback-code').style.display='block';
+  }
 }
 function copyCode(){
   const code=document.getElementById('res-code').textContent,btn=document.getElementById('copy-btn'),orig=btn.innerHTML;
@@ -490,10 +569,49 @@ function decodeEntries(){
   return entries.filter(e=>e.n&&typeof e.s==='number').sort((a,b)=>b.s!==a.s?b.s-a.s:(a.avg||999)-(b.avg||999));
 }
 
+// ADMIN: CLOUD FUNCTIONS
+async function loadFromCloud(){
+  document.getElementById('cloud-admin-status').innerHTML='⏳ Caricamento...';
+  allEntries=await readFromCloud();
+  if(allEntries.length){
+    document.getElementById('cloud-admin-status').innerHTML='<span style="color:var(--correct)">✅ Caricati</span>';
+    document.getElementById('cloud-entries-count').style.display='block';
+    document.getElementById('entries-count').textContent=allEntries.length;
+  }else{
+    document.getElementById('cloud-admin-status').innerHTML='<span style="color:var(--text-muted)">Nessun risultato ancora.</span>';
+    document.getElementById('cloud-entries-count').style.display='none';
+  }
+}
+
+async function launchPodiumFromCloud(){
+  await loadFromCloud();
+  if(allEntries.length<1){showAdminMsg('Nessun risultato trovato.');return;}
+  launchPodium();
+}
+
+async function showReportFromCloud(){
+  await loadFromCloud();
+  if(!allEntries.length){showAdminMsg('Nessun risultato trovato.');return;}
+  showReport();
+}
+
+async function exportCSVFromCloud(){
+  await loadFromCloud();
+  if(!allEntries.length){showAdminMsg('Nessun risultato trovato.');return;}
+  exportCSV();
+}
+
+function loadManual(){
+  allEntries=decodeEntries();
+  if(!allEntries.length){showAdminMsg('Nessun codice valido trovato.');return;}
+  document.getElementById('cloud-admin-status').innerHTML='<span style="color:var(--correct)">✅ '+allEntries.length+' risultati caricati da codici manuali</span>';
+  document.getElementById('cloud-entries-count').style.display='block';
+  document.getElementById('entries-count').textContent=allEntries.length;
+}
+
 // PODIUM CEREMONY
 function launchPodium(){
-  allEntries=decodeEntries();
-  if(allEntries.length<1){showAdminMsg('Nessun codice valido trovato.');return;}
+  if(allEntries.length<1){showAdminMsg('Nessun risultato trovato.');return;}
   showScreen('screen-podium');
   // Reset
   document.getElementById('countdown-area').style.display='flex';
@@ -560,8 +678,7 @@ function clusterBadgeKeyed(key,ok,total){
 
 // REPORT
 function showReport(){
-  allEntries=decodeEntries();
-  if(!allEntries.length){showAdminMsg('Nessun codice valido trovato.');return;}
+  if(!allEntries.length){showAdminMsg('Nessun risultato trovato.');return;}
   const sec=document.getElementById('report-section');sec.style.display='block';
   let html=`<table class="report-table"><thead><tr>
     <th>#</th><th>Nome</th><th>Pts</th><th>Corrette</th><th>Cluster</th>
@@ -629,7 +746,7 @@ function toggleDetail(i){
 }
 
 function exportCSV(){
-  allEntries=decodeEntries();if(!allEntries.length)return;
+  if(!allEntries.length)return;
   const clusterKeys=Object.keys(CLUSTERS);
   const h=['Pos','Nome','Punteggio','Corrette','Totale','Media_sec',
     ...clusterKeys.map(k=>CLUSTERS[k]),
