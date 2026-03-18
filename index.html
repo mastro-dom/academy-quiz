@@ -283,9 +283,9 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text)}
     <div id="cloud-status" style="margin-top:18px;padding:12px;border-radius:8px;text-align:center;font-size:.85rem">
       <span id="cloud-msg" style="color:var(--text-dim)">⏳ Invio risultato...</span>
     </div>
-    <div id="fallback-code" style="display:none">
+    <div id="code-area" style="margin-top:14px">
       <div class="result-code-area">
-        <div class="result-code-label">📋 Invio automatico fallito. Copia questo codice nella chat di Teams</div>
+        <div class="result-code-label" id="code-label">📋 Il tuo codice di backup</div>
         <div class="result-code" id="res-code"></div>
         <button class="btn btn-sm" id="copy-btn" style="margin-top:10px;border-color:var(--correct);color:var(--correct)" onclick="copyCode()">📋 Copia codice</button>
       </div>
@@ -544,15 +544,16 @@ async function showResultsScreen(){
   // Show screen immediately
   showScreen('screen-results');
   document.getElementById('cloud-status').style.display='block';
-  document.getElementById('fallback-code').style.display='none';
   document.getElementById('cloud-msg').innerHTML='<span style="color:var(--text-dim)">⏳ Invio risultato...</span>';
+  document.getElementById('code-label').textContent='📋 Il tuo codice di backup';
   // Push to cloud
   const ok=await pushToCloud(data);
   if(ok){
     document.getElementById('cloud-msg').innerHTML='<span style="color:var(--correct)">✅ Risultato inviato! Il facilitatore lo vedrà nella classifica.</span>';
+    document.getElementById('code-label').textContent='📋 Codice di backup (salva prima di chiudere, per sicurezza)';
   }else{
-    document.getElementById('cloud-msg').innerHTML='<span style="color:var(--wrong)">⚠️ Invio fallito. Copia il codice qui sotto e incollalo nella chat di Teams.</span>';
-    document.getElementById('fallback-code').style.display='block';
+    document.getElementById('cloud-msg').innerHTML='<span style="color:var(--wrong)">⚠️ Invio automatico fallito. Copia il codice qui sotto e incollalo nella chat di Teams.</span>';
+    document.getElementById('code-label').textContent='📋 Copia questo codice e incollalo nella chat di Teams';
   }
 }
 function copyCode(){
