@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Avvale OneStream Academy – Quiz</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --green:#6BBF23;--green-light:#8AD43E;--green-dark:#4A8A14;--green-glow:rgba(107,191,35,.25);
+  --bg:#0F1F12;--bg2:#162218;--bg3:#1D2B1F;--bg-card:#192319;
+  --text:#F0F4F0;--text-dim:#8A9E8C;--text-muted:#5C725E;
+  --border:#2A3D2C;--border-light:#3A5240;
+  --correct:#4CAF50;--wrong:#E53935;--white:#FFFFFF;
+  --gold:#FFD700;--silver:#C0C0C0;--bronze:#CD7F32;
+}
+html,body{height:100%;overflow-x:hidden}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text)}
+.app{width:100%;max-width:900px;margin:0 auto;padding:20px;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center}
+
+.topnav{position:fixed;top:0;left:0;right:0;height:48px;background:rgba(15,31,18,.96);border-bottom:1px solid var(--border);display:none;align-items:center;justify-content:space-between;padding:0 16px;z-index:50;backdrop-filter:blur(8px)}
+.topnav-brand{font-size:.85rem;font-weight:600;color:var(--text-dim);display:flex;align-items:center;gap:8px}
+.topnav-brand span{color:var(--green);font-weight:700}
+.topnav-home{background:none;border:1px solid var(--border);color:var(--text-dim);font-family:'Inter',sans-serif;font-size:.78rem;font-weight:500;padding:5px 14px;cursor:pointer;border-radius:4px;transition:all .2s}
+.topnav-home:hover{border-color:var(--green);color:var(--green)}
+
+.screen{display:none;width:100%;animation:fadeUp .4s ease;padding-top:60px}
+.screen.active{display:flex;flex-direction:column;align-items:center}
+#screen-landing.active{padding-top:0}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+.btn{font-family:'Inter',sans-serif;font-weight:600;font-size:.9rem;padding:12px 28px;border:1.5px solid var(--green);background:transparent;color:var(--green);cursor:pointer;border-radius:6px;transition:all .2s;letter-spacing:.3px}
+.btn:hover{background:var(--green);color:var(--bg);box-shadow:0 0 24px var(--green-glow)}
+.btn-primary{background:var(--green);color:var(--bg)}
+.btn-primary:hover{background:var(--green-light);border-color:var(--green-light)}
+.btn-sm{padding:8px 18px;font-size:.8rem}
+.btn-outline{border-color:var(--border-light);color:var(--text-dim)}
+.btn-outline:hover{border-color:var(--green);color:var(--green);background:transparent}
+.btn:disabled{opacity:.4;cursor:default;pointer-events:none}
+
+/* LANDING */
+.landing-container{text-align:center;max-width:520px}
+.landing-badge{display:inline-block;padding:5px 14px;border:1px solid var(--border);border-radius:20px;font-size:.75rem;color:var(--text-dim);margin-bottom:28px;letter-spacing:.5px}
+.beta-flag{display:inline-block;padding:3px 10px;background:rgba(107,191,35,.15);border:1px solid var(--green-dark);border-radius:4px;font-size:.7rem;font-weight:700;color:var(--green);letter-spacing:1px;margin-bottom:16px}
+.landing-title{font-size:clamp(1.8rem,5vw,2.8rem);font-weight:700;color:var(--white);line-height:1.2;margin-bottom:6px}
+.landing-title span{color:var(--green)}
+.landing-sub{font-size:1rem;color:var(--text-dim);margin-bottom:40px;line-height:1.5}
+.landing-hint{margin-top:48px;padding:14px 18px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;text-align:left;font-size:.8rem;color:var(--text-muted);line-height:1.6}
+.landing-hint strong{color:var(--text-dim);font-weight:600}
+.admin-link{margin-top:64px;font-size:.7rem;color:var(--text-muted);cursor:pointer;opacity:.3;transition:opacity .2s;letter-spacing:.5px}
+.admin-link:hover{opacity:.7}
+
+/* SETUP */
+.section-title{font-size:1.3rem;font-weight:700;color:var(--white);margin-bottom:4px}
+.section-desc{font-size:.88rem;color:var(--text-dim);margin-bottom:20px}
+.setup-section{width:100%;max-width:550px}
+.label{font-size:.78rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1.5px;font-weight:600;margin-bottom:8px;margin-top:24px}
+.input-field{width:100%;padding:12px 16px;font-size:1rem;font-family:'Inter',sans-serif;background:var(--bg2);border:1.5px solid var(--border);color:var(--text);outline:none;transition:border .2s;border-radius:6px}
+.input-field:focus{border-color:var(--green)}
+.input-field::placeholder{color:var(--text-muted)}
+.avatar-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px;width:100%}
+.avatar-card{background:var(--bg2);border:1.5px solid var(--border);padding:12px 6px;cursor:pointer;text-align:center;transition:all .2s;border-radius:8px}
+.avatar-card:hover{border-color:var(--green);transform:translateY(-1px)}
+.avatar-card.selected{border-color:var(--green);background:rgba(107,191,35,.08);box-shadow:0 0 16px var(--green-glow)}
+.avatar-emoji{font-size:2rem;display:block;margin-bottom:4px}
+.avatar-name{font-size:.7rem;color:var(--text-muted);letter-spacing:.5px;font-weight:500}
+
+/* QUIZ */
+.quiz-header{width:100%;display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding:10px 0;border-bottom:1px solid var(--border)}
+.q-counter{font-size:.9rem;font-weight:600;color:var(--text-dim)}
+.q-score{font-family:'JetBrains Mono',monospace;color:var(--green);font-size:.95rem;font-weight:700}
+.timer-bar-container{width:100%;height:4px;background:var(--bg3);margin-bottom:24px;overflow:hidden;border-radius:2px}
+.timer-bar{height:100%;background:var(--green);transition:width .1s linear;border-radius:2px}
+.timer-bar.danger{background:var(--wrong)}
+.timer-text{font-size:2.4rem;font-weight:700;color:var(--green);text-align:center;margin-bottom:8px;min-height:50px;font-family:'JetBrains Mono',monospace}
+.timer-text.danger{color:var(--wrong);animation:pulse .5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.question-text{font-size:clamp(1.1rem,2.8vw,1.4rem);font-weight:600;text-align:center;margin-bottom:32px;line-height:1.45;min-height:70px;display:flex;align-items:center;justify-content:center;padding:0 8px}
+.answers-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%}
+.answer-btn{padding:18px 14px;font-size:.95rem;font-family:'Inter',sans-serif;font-weight:500;border:1.5px solid var(--border);background:var(--bg-card);color:var(--text);cursor:pointer;transition:all .15s;text-align:center;line-height:1.3;min-height:64px;display:flex;align-items:center;justify-content:center;border-radius:8px;gap:10px}
+.answer-btn:hover:not(.disabled){border-color:var(--green);background:rgba(107,191,35,.06);transform:scale(1.01)}
+.answer-btn.correct{border-color:var(--correct);background:rgba(76,175,80,.12);color:var(--correct)}
+.answer-btn.wrong{border-color:var(--wrong);background:rgba(229,57,53,.08);color:var(--wrong)}
+.answer-btn.disabled{cursor:default;opacity:.5}
+.answer-color{display:inline-block;width:12px;height:12px;border-radius:3px;flex-shrink:0}
+.ac-1{background:#E53935}.ac-2{background:#1E88E5}.ac-3{background:#F5A623}.ac-4{background:#43A047}
+
+/* FEEDBACK OVERLAY */
+.feedback{position:fixed;top:0;left:0;right:0;bottom:0;display:none;justify-content:center;align-items:center;z-index:100;background:rgba(10,20,12,.9)}
+.feedback.show{display:flex}
+.feedback-content{text-align:center;animation:popIn .3s ease}
+@keyframes popIn{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+.feedback-icon{font-size:4rem;margin-bottom:12px}
+.feedback-text{font-size:1.8rem;font-weight:700}
+.feedback-points{font-family:'JetBrains Mono',monospace;font-size:1rem;margin-top:6px;color:var(--green)}
+.fb-correct .feedback-text{color:var(--correct)}
+.fb-wrong .feedback-text{color:var(--wrong)}
+
+/* FEEDBACK FORM */
+.feedback-form{width:100%;max-width:550px}
+.fb-card{background:var(--bg-card);border:1.5px solid var(--border);border-radius:12px;padding:28px;margin-bottom:16px}
+.fb-card-title{font-weight:700;font-size:1rem;margin-bottom:16px;color:var(--white)}
+.rating-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)}
+.rating-row:last-child{border-bottom:none}
+.rating-label{font-size:.88rem;color:var(--text);flex:1;padding-right:12px;line-height:1.3}
+.rating-stars{display:flex;gap:4px;flex-shrink:0}
+.star-btn{width:36px;height:36px;border:1.5px solid var(--border);background:var(--bg2);color:var(--text-muted);font-size:1.1rem;cursor:pointer;border-radius:6px;transition:all .15s;display:flex;align-items:center;justify-content:center}
+.star-btn:hover{border-color:var(--green);color:var(--green)}
+.star-btn.active{background:rgba(107,191,35,.15);border-color:var(--green);color:var(--green);font-weight:700}
+.fb-textarea{width:100%;min-height:80px;max-height:150px;padding:12px;font-family:'Inter',sans-serif;font-size:.9rem;background:var(--bg2);border:1.5px solid var(--border);color:var(--text);resize:vertical;outline:none;border-radius:6px;line-height:1.5}
+.fb-textarea:focus{border-color:var(--green)}
+.fb-textarea::placeholder{color:var(--text-muted)}
+.char-count{font-size:.72rem;color:var(--text-muted);text-align:right;margin-top:4px}
+
+/* RESULTS */
+.result-card{background:var(--bg-card);border:1.5px solid var(--border);border-radius:12px;padding:32px;width:100%;max-width:480px;text-align:center;position:relative;overflow:hidden}
+.result-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--green-dark),var(--green),var(--green-dark))}
+.result-avatar{font-size:3rem;margin-bottom:6px}
+.result-name{font-size:1.4rem;font-weight:700;color:var(--white)}
+.result-score-big{font-size:3rem;font-weight:700;color:var(--green);line-height:1;margin:12px 0;font-family:'JetBrains Mono',monospace}
+.result-score-label{font-size:.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:2px;font-weight:600}
+.result-stats{display:flex;gap:20px;justify-content:center;margin:16px 0;flex-wrap:wrap}
+.result-stat{text-align:center}
+.result-stat-val{font-family:'JetBrains Mono',monospace;font-size:1.2rem;font-weight:700}
+.result-stat-label{font-size:.68rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px}
+.result-code-area{margin-top:18px;padding:14px;background:var(--bg);border:1px solid var(--border);border-radius:8px}
+.result-code-label{font-size:.72rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;font-weight:600}
+.result-code{font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--green);word-break:break-all;user-select:all;line-height:1.4}
+
+/* PODIUM */
+.podium-container{text-align:center;width:100%;max-width:600px}
+.countdown-num{font-family:'JetBrains Mono',monospace;font-size:8rem;font-weight:800;color:var(--green);text-shadow:0 0 60px var(--green-glow);animation:countPulse 1s ease;line-height:1}
+@keyframes countPulse{0%{transform:scale(1.4);opacity:0}40%{transform:scale(1);opacity:1}100%{opacity:1}}
+.countdown-label{font-size:1rem;color:var(--text-dim);margin-top:8px;letter-spacing:2px;text-transform:uppercase}
+.podium-visual{display:flex;justify-content:center;align-items:flex-end;gap:12px;margin:40px auto 0;max-width:480px;min-height:300px}
+.podium-slot{display:flex;flex-direction:column;align-items:center;opacity:0;transform:translateY(40px);transition:all .8s cubic-bezier(.34,1.56,.64,1)}
+.podium-slot.revealed{opacity:1;transform:translateY(0)}
+.podium-player{margin-bottom:12px;text-align:center}
+.podium-emoji{font-size:2.8rem;display:block}
+.podium-name{font-weight:700;font-size:1rem;margin-top:4px;color:var(--white)}
+.podium-pts{font-family:'JetBrains Mono',monospace;font-size:.85rem;color:var(--green);margin-top:2px}
+.podium-block{width:120px;display:flex;align-items:center;justify-content:center;border-radius:8px 8px 0 0;font-size:2.5rem;font-weight:800}
+.podium-1{height:160px;background:linear-gradient(180deg,rgba(255,215,0,.2),rgba(255,215,0,.05));border:1.5px solid rgba(255,215,0,.4);border-bottom:none;color:var(--gold)}
+.podium-2{height:120px;background:linear-gradient(180deg,rgba(192,192,192,.15),rgba(192,192,192,.03));border:1.5px solid rgba(192,192,192,.3);border-bottom:none;color:var(--silver)}
+.podium-3{height:90px;background:linear-gradient(180deg,rgba(205,127,50,.15),rgba(205,127,50,.03));border:1.5px solid rgba(205,127,50,.3);border-bottom:none;color:var(--bronze)}
+.podium-base{width:100%;max-width:396px;height:4px;background:var(--border-light);margin:0 auto;border-radius:0 0 4px 4px}
+.farewell{margin-top:40px;text-align:center;opacity:0;transition:opacity 1s ease}
+.farewell.show{opacity:1}
+.farewell-text{font-size:1.8rem;font-weight:700;color:var(--white)}
+.farewell-sub{font-size:1rem;color:var(--text-dim);margin-top:8px}
+.farewell-emoji{font-size:2.5rem;margin-bottom:12px}
+
+/* ADMIN */
+.admin-section{width:100%;max-width:700px}
+.score-textarea{width:100%;min-height:100px;padding:12px;font-family:'JetBrains Mono',monospace;font-size:.75rem;background:var(--bg2);border:1.5px solid var(--border);color:var(--text);resize:vertical;outline:none;border-radius:6px}
+.score-textarea:focus{border-color:var(--green)}
+.report-section{width:100%;margin-top:24px;overflow-x:auto}
+.report-table{width:100%;border-collapse:collapse;font-size:.78rem}
+.report-table th{background:var(--bg3);color:var(--green);font-weight:600;text-transform:uppercase;letter-spacing:.5px;font-size:.7rem;padding:10px 8px;text-align:left;border-bottom:2px solid var(--border-light);white-space:nowrap}
+.report-table td{padding:8px;border-bottom:1px solid var(--border);color:var(--text);vertical-align:top}
+.report-table tr:hover td{background:rgba(107,191,35,.03)}
+.report-suggestion{max-width:200px;font-size:.75rem;color:var(--text-dim);line-height:1.4;word-wrap:break-word}
+.cluster-badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.7rem;font-weight:600;margin:1px 2px;white-space:nowrap}
+.cluster-ok{background:rgba(76,175,80,.15);color:var(--correct)}
+.cluster-warn{background:rgba(245,166,35,.15);color:#F5A623}
+.cluster-bad{background:rgba(229,57,53,.12);color:var(--wrong)}
+.detail-toggle{cursor:pointer;color:var(--green);font-size:.75rem;text-decoration:underline;font-weight:500}
+.detail-row{display:none}
+.detail-row.open{display:table-row}
+.detail-cell{padding:8px 8px 14px;background:var(--bg2)}
+.q-result{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:4px;font-size:.7rem;margin:2px;border:1px solid var(--border)}
+.q-result.q-ok{border-color:rgba(76,175,80,.3);color:var(--correct)}
+.q-result.q-no{border-color:rgba(229,57,53,.2);color:var(--wrong)}
+.q-group-label{font-size:.68rem;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin:8px 0 4px;display:block}
+
+@media(max-width:600px){
+  .answers-grid{grid-template-columns:1fr}
+  .avatar-grid{grid-template-columns:repeat(4,1fr)}
+  .rating-row{flex-direction:column;align-items:flex-start;gap:8px}
+  .podium-block{width:90px}
+  .podium-visual{gap:8px}
+  .podium-emoji{font-size:2rem}
+  .podium-name{font-size:.85rem}
+}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+
+<nav class="topnav" id="topnav">
+  <div class="topnav-brand">Avvale <span>OneStream Academy</span></div>
+  <button class="topnav-home" onclick="goHome()">Home</button>
+</nav>
+
+<!-- LANDING -->
+<div class="screen active" id="screen-landing">
+  <div class="landing-container">
+    <div class="beta-flag">🇮🇹 ITA-VERSION · BETA · 23 MARZO 2026</div>
+    <div class="landing-badge">Avvale · OneStream Academy</div>
+    <h1 class="landing-title">Knowledge <span>Quiz</span></h1>
+    <p class="landing-sub">Metti alla prova quello che hai imparato oggi. Rispondi veloce, scala la classifica.</p>
+    <div>
+      <button class="btn btn-primary" onclick="showScreen('screen-setup')">Inizia il Quiz</button>
+    </div>
+    <div class="landing-hint">
+      🎬 Il caso di studio che accompagna questa Academy si ispira a una certa catena di ristoranti di Albuquerque. <strong>Se ricordi Gus che spiega il cubo multidimensionale, ricorderai il cubo multidimensionale.</strong>
+    </div>
+    <div class="admin-link" onclick="toggleAdminLogin()">Facilitatore</div>
+    <div id="admin-login" style="display:none;margin-top:12px;text-align:center">
+      <div style="display:inline-flex;gap:8px;align-items:center">
+        <input type="password" id="admin-pw" class="input-field" style="width:200px;font-size:.85rem;padding:8px 12px" placeholder="Password..." onkeydown="if(event.key==='Enter')checkAdminPw()">
+        <button class="btn btn-sm btn-primary" onclick="checkAdminPw()">→</button>
+      </div>
+      <div id="admin-pw-error" style="font-size:.75rem;color:var(--wrong);margin-top:6px;display:none">Password errata</div>
+    </div>
+  </div>
+</div>
+
+<!-- SETUP -->
+<div class="screen" id="screen-setup">
+  <div class="setup-section">
+    <div class="beta-flag">🇮🇹 ITA-VERSION · BETA</div>
+    <div class="section-title">Preparati</div>
+    <p class="section-desc">Day 1 – 23 Marzo 2026</p>
+    <div class="label">Il tuo nome</div>
+    <input class="input-field" id="player-name" placeholder="Scrivi il tuo nome..." maxlength="20" autocomplete="off">
+    <div class="label">Scegli il tuo personaggio</div>
+    <div class="avatar-grid" id="avatar-grid"></div>
+    <div style="margin-top:24px;text-align:center">
+      <button class="btn btn-primary" onclick="startQuiz()" id="btn-start" disabled>Inizia</button>
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="screen" id="screen-quiz">
+  <div class="quiz-header">
+    <span class="q-counter" id="q-counter">1 / 15</span>
+    <span class="q-score" id="q-score">0 pts</span>
+  </div>
+  <div class="timer-bar-container"><div class="timer-bar" id="timer-bar"></div></div>
+  <div class="timer-text" id="timer-text">30</div>
+  <div class="question-text" id="question-text"></div>
+  <div class="answers-grid" id="answers-grid"></div>
+</div>
+
+<!-- FEEDBACK FORM -->
+<div class="screen" id="screen-feedback">
+  <div class="feedback-form">
+    <div class="section-title">Come è andata oggi?</div>
+    <p class="section-desc">Il tuo feedback ci aiuta a migliorare l'Academy</p>
+    <div class="fb-card">
+      <div class="fb-card-title">Valutazione della giornata</div>
+      <div class="rating-row"><div class="rating-label">Qualità della lezione</div><div class="rating-stars" data-rating="r_lesson"></div></div>
+      <div class="rating-row"><div class="rating-label">Comprensione dei contenuti</div><div class="rating-stars" data-rating="r_comprehension"></div></div>
+      <div class="rating-row"><div class="rating-label">Ritmo e coinvolgimento</div><div class="rating-stars" data-rating="r_engagement"></div></div>
+      <div class="rating-row"><div class="rating-label">Interazione e laboratorio</div><div class="rating-stars" data-rating="r_lab"></div></div>
+    </div>
+    <div class="fb-card">
+      <div class="fb-card-title">Suggerimenti o commenti</div>
+      <textarea class="fb-textarea" id="fb-suggestion" placeholder="Cosa ha funzionato? Cosa si potrebbe migliorare?" maxlength="250" oninput="updateCharCount()"></textarea>
+      <div class="char-count"><span id="char-count">0</span> / 250</div>
+    </div>
+    <div style="text-align:center;margin-top:16px">
+      <button class="btn btn-primary" onclick="submitFeedback()">Invia e vedi risultato</button>
+    </div>
+  </div>
+</div>
+
+<!-- RESULTS -->
+<div class="screen" id="screen-results">
+  <div class="result-card">
+    <div class="result-avatar" id="res-avatar"></div>
+    <div class="result-name" id="res-name"></div>
+    <div class="result-score-label">Punteggio Finale</div>
+    <div class="result-score-big" id="res-score">0</div>
+    <div class="result-stats">
+      <div class="result-stat"><div class="result-stat-val" style="color:var(--correct)" id="res-correct">0</div><div class="result-stat-label">Corrette</div></div>
+      <div class="result-stat"><div class="result-stat-val" style="color:var(--wrong)" id="res-wrong">0</div><div class="result-stat-label">Sbagliate</div></div>
+      <div class="result-stat"><div class="result-stat-val" id="res-time">0s</div><div class="result-stat-label">Tempo medio</div></div>
+    </div>
+    <div class="result-code-area">
+      <div class="result-code-label">📋 Copia questo codice e incollalo nella chat di Teams</div>
+      <div class="result-code" id="res-code"></div>
+      <button class="btn btn-sm" id="copy-btn" style="margin-top:10px;border-color:var(--correct);color:var(--correct)" onclick="copyCode()">📋 Copia codice</button>
+    </div>
+  </div>
+  <div style="margin-top:20px;text-align:center">
+    <button class="btn btn-sm btn-outline" onclick="goHome()">Home</button>
+  </div>
+</div>
+
+<!-- ADMIN: PASTE CODES -->
+<div class="screen" id="screen-admin">
+  <div class="admin-section">
+    <div class="section-title">🔒 Area Facilitatore</div>
+    <p class="section-desc">Incolla i codici degli studenti dalla chat di Teams (uno per riga)</p>
+    <textarea class="score-textarea" id="codes-input" placeholder="Incolla qui i codici risultato, uno per riga..."></textarea>
+    <div id="admin-msg" style="display:none;font-size:.85rem;color:var(--wrong);margin-top:8px"></div>
+    <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn btn-sm btn-primary" onclick="launchPodium()">🏆 Genera Classifica</button>
+      <button class="btn btn-sm btn-outline" onclick="showReport()">📊 Report completo</button>
+      <button class="btn btn-sm btn-outline" onclick="exportCSV()">⬇️ Esporta CSV</button>
+      <button class="btn btn-sm btn-outline" onclick="goHome()">← Home</button>
+    </div>
+    <div class="report-section" id="report-section" style="display:none"></div>
+  </div>
+</div>
+
+<!-- PODIUM CEREMONY -->
+<div class="screen" id="screen-podium">
+  <div class="podium-container">
+    <div id="countdown-area" style="min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center">
+      <div class="countdown-num" id="countdown-num"></div>
+      <div class="countdown-label" id="countdown-label">Classifica in arrivo...</div>
+    </div>
+    <div id="podium-stage" style="display:none">
+      <div class="podium-visual">
+        <div class="podium-slot" id="slot-2">
+          <div class="podium-player"><span class="podium-emoji" id="p2-emoji"></span><div class="podium-name" id="p2-name"></div><div class="podium-pts" id="p2-pts"></div></div>
+          <div class="podium-block podium-2">2</div>
+        </div>
+        <div class="podium-slot" id="slot-1">
+          <div class="podium-player"><span class="podium-emoji" id="p1-emoji"></span><div class="podium-name" id="p1-name"></div><div class="podium-pts" id="p1-pts"></div></div>
+          <div class="podium-block podium-1">1</div>
+        </div>
+        <div class="podium-slot" id="slot-3">
+          <div class="podium-player"><span class="podium-emoji" id="p3-emoji"></span><div class="podium-name" id="p3-name"></div><div class="podium-pts" id="p3-pts"></div></div>
+          <div class="podium-block podium-3">3</div>
+        </div>
+      </div>
+      <div class="podium-base"></div>
+    </div>
+    <div class="farewell" id="farewell">
+      <div class="farewell-emoji">👏</div>
+      <div class="farewell-text">Ottimo lavoro, tutti!</div>
+      <div class="farewell-sub">A domani per il Day 2.</div>
+      <div style="margin-top:24px"><button class="btn btn-sm btn-outline" onclick="backToAdmin()">← Area facilitatore</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ ANSWER FEEDBACK OVERLAY -->
+<div class="feedback" id="feedback">
+  <div class="feedback-content" id="feedback-content"></div>
+</div>
+
+</div>
+
+<script>
+const CLUSTERS={base:"Concetti base",tokens:"Tokens & Notation",case:"Caso di studio",design:"Design",lab:"Laboratorio"};
+const QUESTIONS = [
+  {q:"Cos'è un Cube in OneStream?",a:["Una dashboard di reportistica","Una struttura organizzativa che contiene i dati","Un tipo di business rule","Uno strumento di backup"],c:1,t:25,g:"base"},
+  {q:"In quali due categorie si dividono le dimensioni OneStream?",a:["Configurable e System-Defined","Statiche e Dinamiche","Standard e Custom","Primarie e Secondarie"],c:0,t:20,g:"base"},
+  {q:"Quale token rappresenta la dimensione Entity?",a:["D#","E#","EN#","ET#"],c:1,t:15,g:"tokens"},
+  {q:"Quante dimensioni User Defined supporta OneStream?",a:["4","6","8","10"],c:2,t:15,g:"tokens"},
+  {q:"Dove si creano e gestiscono le dimensioni configurabili?",a:["System Settings","Application Properties","Dimension Library","Cube Admin"],c:2,t:20,g:"tokens"},
+  {q:"Cosa descrivono le dimensioni in OneStream?",a:["Memorizzano direttamente i dati","Organizzano i dati in gerarchie e liste di membri","Calcolano formule","Definiscono i permessi utente"],c:1,t:25,g:"base"},
+  {q:"Qual è il token della dimensione Account?",a:["AC#","A#","ACC#","AT#"],c:1,t:15,g:"tokens"},
+  {q:"Quante valute sono configurate nel caso LPH?",a:["3 (USD, EUR, GBP)","5","7 (AUD, CAD, EUR, GBP, JPY, MXN, USD)","Tutte le valute mondiali"],c:2,t:25,g:"case"},
+  {q:"In quanti continenti opera Los Pollos Hermanos nel caso di studio?",a:["2","3","4","5"],c:2,t:15,g:"case"},
+  {q:"Cos'è un Data Unit in OneStream?",a:["Un template di report","Un gruppo di sicurezza","Un'unità di lavoro per caricare, calcolare e salvare dati","Un tipo di business rule"],c:2,t:25,g:"base"},
+  {q:"Quale dimensione è derivata dalla dimensione Entity?",a:["Account","Flow","Intercompany","User Defined 1"],c:2,t:20,g:"design"},
+  {q:"Cosa significa 'extensibility' nelle dimensioni?",a:["Aggiungere nuovi cubi","Far crescere le dimensioni senza cambiare la struttura del cubo","Convertire a tipo dinamico","Unire due dimensioni"],c:1,t:25,g:"design"},
+  {q:"Qual è il rischio principale di una dimensione piatta senza livelli gerarchici?",a:["Login più lento","Redesign costoso quando il business cresce","Costi di licenza più alti","Vulnerabilità di sicurezza"],c:1,t:25,g:"design"},
+  {q:"Come si chiama il processo di importazione dei metadata delle dimensioni?",a:["Data Push","Load/Extract","Sync Dimensions","Metadata Refresh"],c:1,t:20,g:"lab"},
+  {q:"Qual è la prima cosa da verificare prima di creare un Cube?",a:["Che il workflow sia configurato","Che le dimensioni siano popolate","Che i report siano pronti","Che gli utenti siano creati"],c:1,t:20,g:"lab"}
+];
+
+const AVATARS=[{emoji:"📊",name:"Analyst"},{emoji:"🏗️",name:"Architect"},{emoji:"🧪",name:"Tester"},{emoji:"🚀",name:"Builder"},{emoji:"🎯",name:"Strategist"},{emoji:"🔍",name:"Detective"},{emoji:"⚡",name:"Speedster"},{emoji:"🧠",name:"Thinker"}];
+
+let state={playerName:'',avatar:null,currentQ:0,score:0,correct:0,questionTimes:[],answers:[],timerInterval:null,answered:false,ratings:{r_lesson:0,r_comprehension:0,r_engagement:0,r_lab:0},suggestion:''};
+let allEntries=[];
+const ADMIN_PW='avvaleacademy2026';
+let adminAuth=false;
+
+// NAV
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.getElementById('topnav').style.display=id==='screen-landing'?'none':'flex';
+  window.scrollTo(0,0);
+}
+function goHome(){clearInterval(state.timerInterval);showScreen('screen-landing');}
+
+// ADMIN ACCESS
+function toggleAdminLogin(){
+  if(adminAuth){showScreen('screen-admin');return;}
+  const el=document.getElementById('admin-login');
+  el.style.display=el.style.display==='none'?'block':'none';
+  if(el.style.display==='block')document.getElementById('admin-pw').focus();
+}
+function checkAdminPw(){
+  const pw=document.getElementById('admin-pw').value;
+  if(pw===ADMIN_PW){adminAuth=true;document.getElementById('admin-login').style.display='none';showScreen('screen-admin');}
+  else{const err=document.getElementById('admin-pw-error');err.style.display='block';setTimeout(()=>err.style.display='none',2000);document.getElementById('admin-pw').value='';}
+}
+function backToAdmin(){showScreen('screen-admin');}
+function showAdminMsg(msg){const el=document.getElementById('admin-msg');el.textContent=msg;el.style.display='block';setTimeout(()=>el.style.display='none',3000);}
+
+// INIT
+function init(){
+  const grid=document.getElementById('avatar-grid');grid.innerHTML='';
+  AVATARS.forEach((av,i)=>{
+    const d=document.createElement('div');d.className='avatar-card';
+    d.innerHTML=`<span class="avatar-emoji">${av.emoji}</span><span class="avatar-name">${av.name}</span>`;
+    d.onclick=()=>{document.querySelectorAll('.avatar-card').forEach(c=>c.classList.remove('selected'));d.classList.add('selected');state.avatar=i;checkReady();};
+    grid.appendChild(d);
+  });
+  document.getElementById('player-name').addEventListener('input',checkReady);
+  document.querySelectorAll('.rating-stars').forEach(container=>{
+    const key=container.dataset.rating;
+    for(let i=1;i<=5;i++){
+      const btn=document.createElement('button');btn.className='star-btn';btn.textContent=i;
+      btn.onclick=()=>{state.ratings[key]=i;container.querySelectorAll('.star-btn').forEach((b,idx)=>{b.classList.toggle('active',idx<i);});};
+      container.appendChild(btn);
+    }
+  });
+}
+function checkReady(){document.getElementById('btn-start').disabled=!(document.getElementById('player-name').value.trim()&&state.avatar!==null);}
+function updateCharCount(){document.getElementById('char-count').textContent=document.getElementById('fb-suggestion').value.length;}
+
+// QUIZ
+function startQuiz(){
+  state.playerName=document.getElementById('player-name').value.trim();
+  if(!state.playerName||state.avatar===null)return;
+  state.currentQ=0;state.score=0;state.correct=0;state.questionTimes=[];state.answers=[];
+  showScreen('screen-quiz');loadQuestion();
+}
+function loadQuestion(){
+  const q=QUESTIONS[state.currentQ];state.answered=false;
+  document.getElementById('q-counter').textContent=`${state.currentQ+1} / ${QUESTIONS.length}`;
+  document.getElementById('q-score').textContent=`${state.score} pts`;
+  document.getElementById('question-text').textContent=q.q;
+  document.getElementById('timer-text').textContent=q.t;document.getElementById('timer-text').className='timer-text';
+  const bar=document.getElementById('timer-bar');bar.style.width='100%';bar.className='timer-bar';
+  const colors=['ac-1','ac-2','ac-3','ac-4'];
+  const grid=document.getElementById('answers-grid');grid.innerHTML='';
+  q.a.forEach((ans,i)=>{const btn=document.createElement('button');btn.className='answer-btn';btn.innerHTML=`<span class="answer-color ${colors[i]}"></span>${ans}`;btn.onclick=()=>submitAnswer(i);grid.appendChild(btn);});
+  clearInterval(state.timerInterval);
+  const start=Date.now(),total=q.t*1000;
+  state.timerInterval=setInterval(()=>{
+    const rem=Math.max(0,total-(Date.now()-start)),s=Math.ceil(rem/1000);
+    document.getElementById('timer-text').textContent=s;bar.style.width=(rem/total*100)+'%';
+    if(s<=5){bar.className='timer-bar danger';document.getElementById('timer-text').className='timer-text danger';}
+    if(rem<=0){clearInterval(state.timerInterval);submitAnswer(-1);}
+  },100);
+}
+function submitAnswer(idx){
+  if(state.answered)return;state.answered=true;clearInterval(state.timerInterval);
+  const q=QUESTIONS[state.currentQ],ok=idx===q.c;
+  state.answers.push(ok?1:0);
+  const ratio=(parseFloat(document.getElementById('timer-bar').style.width)||0)/100;
+  let pts=0;if(ok){pts=1000+Math.round(500*ratio);state.correct++;}
+  state.score+=pts;state.questionTimes.push(Math.round(q.t*(1-ratio)));
+  document.querySelectorAll('.answer-btn').forEach((b,i)=>{b.classList.add('disabled');if(i===q.c)b.classList.add('correct');if(i===idx&&!ok)b.classList.add('wrong');});
+  const fb=document.getElementById('feedback'),fc=document.getElementById('feedback-content');
+  fc.className='feedback-content '+(ok?'fb-correct':'fb-wrong');
+  fc.innerHTML=ok?`<div class="feedback-icon">✅</div><div class="feedback-text">Corretto!</div><div class="feedback-points">+${pts} pts</div>`:`<div class="feedback-icon">❌</div><div class="feedback-text">Sbagliato</div><div class="feedback-points">+0 pts</div>`;
+  fb.classList.add('show');
+  setTimeout(()=>{fb.classList.remove('show');state.currentQ++;state.currentQ<QUESTIONS.length?loadQuestion():showScreen('screen-feedback');},1400);
+}
+
+// FEEDBACK & RESULTS
+function submitFeedback(){state.suggestion=document.getElementById('fb-suggestion').value.trim().substring(0,250);showResultsScreen();}
+function showResultsScreen(){
+  const avg=state.questionTimes.length?(state.questionTimes.reduce((a,b)=>a+b,0)/state.questionTimes.length).toFixed(1):0;
+  document.getElementById('res-avatar').textContent=AVATARS[state.avatar].emoji;
+  document.getElementById('res-name').textContent=state.playerName;
+  document.getElementById('res-score').textContent=state.score;
+  document.getElementById('res-correct').textContent=state.correct;
+  document.getElementById('res-wrong').textContent=QUESTIONS.length-state.correct;
+  document.getElementById('res-time').textContent=avg+'s';
+  const data={v:2,n:state.playerName,a:state.avatar,s:state.score,c:state.correct,t:QUESTIONS.length,avg:parseFloat(avg),qa:state.answers,r:state.ratings,sg:state.suggestion,d:'day1',ts:Date.now()};
+  document.getElementById('res-code').textContent=btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+  showScreen('screen-results');
+}
+function copyCode(){
+  const code=document.getElementById('res-code').textContent,btn=document.getElementById('copy-btn'),orig=btn.innerHTML;
+  if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(code).then(()=>{btn.innerHTML='✅ Copiato!';setTimeout(()=>btn.innerHTML=orig,2000);});}
+  else{const ta=document.createElement('textarea');ta.value=code;ta.style.cssText='position:fixed;left:-9999px';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');btn.innerHTML='✅ Copiato!';setTimeout(()=>btn.innerHTML=orig,2000);}catch(e){window.getSelection().removeAllRanges();const r=document.createRange();r.selectNodeContents(document.getElementById('res-code'));window.getSelection().addRange(r);}document.body.removeChild(ta);}
+}
+
+// DECODE
+function decodeEntries(){
+  const lines=document.getElementById('codes-input').value.trim().split('\n').map(l=>l.trim()).filter(l=>l.length>0);
+  const entries=[];
+  for(const l of lines){try{entries.push(JSON.parse(decodeURIComponent(escape(atob(l)))));}catch(e){}}
+  return entries.filter(e=>e.n&&typeof e.s==='number').sort((a,b)=>b.s!==a.s?b.s-a.s:(a.avg||999)-(b.avg||999));
+}
+
+// PODIUM CEREMONY
+function launchPodium(){
+  allEntries=decodeEntries();
+  if(allEntries.length<1){showAdminMsg('Nessun codice valido trovato.');return;}
+  showScreen('screen-podium');
+  // Reset
+  document.getElementById('countdown-area').style.display='flex';
+  document.getElementById('podium-stage').style.display='none';
+  document.getElementById('farewell').classList.remove('show');
+  ['slot-1','slot-2','slot-3'].forEach(id=>document.getElementById(id).classList.remove('revealed'));
+  // Countdown 5-4-3-2-1
+  let count=5;
+  const numEl=document.getElementById('countdown-num'),labelEl=document.getElementById('countdown-label');
+  numEl.textContent=count;labelEl.textContent='Classifica in arrivo...';
+  const cInterval=setInterval(()=>{
+    count--;
+    if(count>0){numEl.textContent=count;numEl.style.animation='none';void numEl.offsetHeight;numEl.style.animation='countPulse 1s ease';}
+    else{
+      clearInterval(cInterval);
+      document.getElementById('countdown-area').style.display='none';
+      document.getElementById('podium-stage').style.display='block';
+      revealPodium();
+    }
+  },1000);
+}
+
+function revealPodium(){
+  const top3=allEntries.slice(0,3);
+  const fill=(idx,prefix)=>{
+    if(!top3[idx])return;
+    document.getElementById(prefix+'-emoji').textContent=AVATARS[top3[idx].a]?AVATARS[top3[idx].a].emoji:'❓';
+    document.getElementById(prefix+'-name').textContent=top3[idx].n;
+    document.getElementById(prefix+'-pts').textContent=top3[idx].s+' pts';
+  };
+  fill(0,'p1');fill(1,'p2');fill(2,'p3');
+  // Reveal: 3rd, then 2nd, then 1st
+  const delays=[
+    {id:'slot-3',ms:800},
+    {id:'slot-2',ms:2400},
+    {id:'slot-1',ms:4000}
+  ];
+  delays.forEach(d=>{
+    if(top3.length>=parseInt(d.id.split('-')[1])){
+      setTimeout(()=>document.getElementById(d.id).classList.add('revealed'),d.ms);
+    }
+  });
+  // Farewell
+  setTimeout(()=>document.getElementById('farewell').classList.add('show'),5500);
+}
+
+// CLUSTER HELPERS
+function getClusterScores(qa){
+  const scores={};
+  for(const key in CLUSTERS)scores[key]={ok:0,total:0};
+  QUESTIONS.forEach((q,i)=>{if(scores[q.g]){scores[q.g].total++;if(qa&&qa[i])scores[q.g].ok++;}});
+  return scores;
+}
+function clusterBadge(ok,total){
+  const pct=total?ok/total:0;
+  const cls=pct>=0.8?'cluster-ok':pct>=0.5?'cluster-warn':'cluster-bad';
+  return `<span class="cluster-badge ${cls}">${CLUSTERS[Object.keys(CLUSTERS).find(k=>true)]?'':''} ${ok}/${total}</span>`;
+}
+function clusterBadgeKeyed(key,ok,total){
+  const pct=total?ok/total:0;
+  const cls=pct>=0.8?'cluster-ok':pct>=0.5?'cluster-warn':'cluster-bad';
+  return `<span class="cluster-badge ${cls}">${CLUSTERS[key]} ${ok}/${total}</span>`;
+}
+
+// REPORT
+function showReport(){
+  allEntries=decodeEntries();
+  if(!allEntries.length){showAdminMsg('Nessun codice valido trovato.');return;}
+  const sec=document.getElementById('report-section');sec.style.display='block';
+  let html=`<table class="report-table"><thead><tr>
+    <th>#</th><th>Nome</th><th>Pts</th><th>Corrette</th><th>Cluster</th>
+    <th>Lez.</th><th>Compr.</th><th>Ritmo</th><th>Lab</th><th>Suggerimenti</th><th></th>
+  </tr></thead><tbody>`;
+  allEntries.forEach((e,i)=>{
+    const r=e.r||{},qa=e.qa||[];
+    const cs=getClusterScores(qa);
+    const clusterHtml=Object.keys(CLUSTERS).map(k=>clusterBadgeKeyed(k,cs[k].ok,cs[k].total)).join(' ');
+    html+=`<tr>
+      <td>${i+1}</td><td><strong>${esc(e.n)}</strong></td>
+      <td style="font-family:'JetBrains Mono',monospace;color:var(--green)">${e.s}</td>
+      <td>${e.c}/${e.t}</td>
+      <td>${qa.length?clusterHtml:'<span style="color:var(--text-muted)">n/a</span>'}</td>
+      <td>${stars(r.r_lesson)}</td><td>${stars(r.r_comprehension)}</td><td>${stars(r.r_engagement)}</td><td>${stars(r.r_lab)}</td>
+      <td class="report-suggestion">${esc(e.sg||'—')}</td>
+      <td>${qa.length?`<span class="detail-toggle" onclick="toggleDetail(${i})">dettaglio</span>`:''}</td>
+    </tr>`;
+    // Detail row (hidden by default)
+    if(qa.length){
+      html+=`<tr class="detail-row" id="detail-${i}"><td colspan="11" class="detail-cell">`;
+      const grouped={};
+      QUESTIONS.forEach((q,qi)=>{if(!grouped[q.g])grouped[q.g]=[];grouped[q.g].push({qi,q,ok:qa[qi]});});
+      for(const gk in grouped){
+        html+=`<span class="q-group-label">${CLUSTERS[gk]}</span><div style="margin-bottom:8px">`;
+        grouped[gk].forEach(item=>{
+          const cls=item.ok?'q-ok':'q-no';
+          const icon=item.ok?'✓':'✗';
+          html+=`<span class="q-result ${cls}" title="${esc(item.q.q)}">${icon} Q${item.qi+1}</span>`;
+        });
+        html+=`</div>`;
+      }
+      html+=`</td></tr>`;
+    }
+  });
+  // Averages row
+  const n=allEntries.length;
+  const avgR=key=>{const v=allEntries.filter(e=>e.r&&e.r[key]>0).map(e=>e.r[key]);return v.length?(v.reduce((a,b)=>a+b,0)/v.length).toFixed(1):'-';};
+  // Class-level cluster averages
+  const classCluster={};
+  for(const k in CLUSTERS)classCluster[k]={ok:0,total:0};
+  allEntries.forEach(e=>{
+    if(!e.qa)return;
+    const cs=getClusterScores(e.qa);
+    for(const k in cs){classCluster[k].ok+=cs[k].ok;classCluster[k].total+=cs[k].total;}
+  });
+  const clusterAvgHtml=Object.keys(CLUSTERS).map(k=>{
+    const c=classCluster[k];return c.total?clusterBadgeKeyed(k,c.ok,c.total):'';
+  }).join(' ');
+  html+=`<tr style="border-top:2px solid var(--border-light);font-weight:600">
+    <td></td><td>MEDIA (${n})</td>
+    <td style="color:var(--green)">${Math.round(allEntries.reduce((a,e)=>a+e.s,0)/n)}</td>
+    <td>${(allEntries.reduce((a,e)=>a+e.c,0)/n).toFixed(1)}/${QUESTIONS.length}</td>
+    <td>${clusterAvgHtml}</td>
+    <td>${avgR('r_lesson')}</td><td>${avgR('r_comprehension')}</td><td>${avgR('r_engagement')}</td><td>${avgR('r_lab')}</td>
+    <td></td><td></td>
+  </tr></tbody></table>`;
+  sec.innerHTML=html;
+  sec.scrollIntoView({behavior:'smooth'});
+}
+
+function toggleDetail(i){
+  const row=document.getElementById('detail-'+i);
+  if(row)row.classList.toggle('open');
+}
+
+function exportCSV(){
+  allEntries=decodeEntries();if(!allEntries.length)return;
+  const clusterKeys=Object.keys(CLUSTERS);
+  const h=['Pos','Nome','Punteggio','Corrette','Totale','Media_sec',
+    ...clusterKeys.map(k=>CLUSTERS[k]),
+    ...QUESTIONS.map((_,i)=>'Q'+(i+1)),
+    'V_Lezione','V_Comprensione','V_Ritmo','V_Lab','Suggerimenti'];
+  const rows=allEntries.map((e,i)=>{
+    const r=e.r||{},qa=e.qa||[];
+    const cs=getClusterScores(qa);
+    return[i+1,e.n,e.s,e.c,e.t,e.avg||'',
+      ...clusterKeys.map(k=>qa.length?cs[k].ok+'/'+cs[k].total:''),
+      ...QUESTIONS.map((_,qi)=>qa[qi]!==undefined?(qa[qi]?'OK':'FAIL'):''),
+      r.r_lesson||'',r.r_comprehension||'',r.r_engagement||'',r.r_lab||'',
+      '"'+(e.sg||'').replace(/"/g,"'")+'"'];
+  });
+  const csv=h.join(';')+'\n'+rows.map(r=>r.join(';')).join('\n');
+  const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='academy_quiz_day1_report.csv';a.click();
+}
+
+function stars(v){return v?'●'.repeat(v)+'○'.repeat(5-v):'<span style="color:var(--text-muted)">—</span>';}
+function esc(s){const d=document.createElement('div');d.textContent=s||'';return d.innerHTML;}
+
+init();
+document.getElementById('topnav').style.display='none';
+</script>
+</body>
+</html>
