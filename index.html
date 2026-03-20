@@ -539,7 +539,7 @@ function init(){
   const af=document.getElementById('admin-day-filter');af.innerHTML='';
   for(const[k,d]of Object.entries(DAYS)){
     const btn=document.createElement('button');btn.className='day-filter-btn'+(k==='day1'?' active':'');btn.textContent=d.title;
-    btn.onclick=()=>{adminDayFilter=k;af.querySelectorAll('.day-filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.getElementById('cloud-entries-count').style.display='none';document.getElementById('report-section').style.display='none';document.getElementById('cloud-admin-status').innerHTML='';};
+    btn.onclick=()=>{adminDayFilter=k;allEntries=[];af.querySelectorAll('.day-filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.getElementById('cloud-entries-count').style.display='none';document.getElementById('report-section').style.display='none';document.getElementById('cloud-admin-status').innerHTML='';};
     af.appendChild(btn);
   }
   // Avatars
@@ -653,9 +653,10 @@ async function loadFromCloud(){
   if(allEntries.length){document.getElementById('cloud-admin-status').innerHTML='<span style="color:var(--correct)">✅ Caricati</span>';document.getElementById('cloud-entries-count').style.display='block';document.getElementById('entries-count').textContent=allEntries.length;}
   else{document.getElementById('cloud-admin-status').innerHTML='<span style="color:var(--text-muted)">Nessun risultato per '+DAYS[adminDayFilter].title+'</span>';document.getElementById('cloud-entries-count').style.display='none';}
 }
-async function launchPodiumFromCloud(){await loadFromCloud();if(allEntries.length<1){showAdminMsg('Nessun risultato.');return;}document.getElementById('farewell-text').textContent='Ottimo lavoro, tutti!';document.getElementById('farewell-sub').textContent=DAYS[adminDayFilter].farewell;launchPodium();}
-async function showReportFromCloud(){await loadFromCloud();if(!allEntries.length){showAdminMsg('Nessun risultato.');return;}showReport();}
-async function exportCSVFromCloud(){await loadFromCloud();if(!allEntries.length){showAdminMsg('Nessun risultato.');return;}exportCSV();}
+async function ensureEntries(){if(allEntries.length>0)return true;await loadFromCloud();return allEntries.length>0;}
+async function launchPodiumFromCloud(){if(!await ensureEntries()){showAdminMsg('Nessun risultato. Carica prima da cloud o da codici.');return;}document.getElementById('farewell-text').textContent='Ottimo lavoro, tutti!';document.getElementById('farewell-sub').textContent=DAYS[adminDayFilter].farewell;launchPodium();}
+async function showReportFromCloud(){if(!await ensureEntries()){showAdminMsg('Nessun risultato. Carica prima da cloud o da codici.');return;}showReport();}
+async function exportCSVFromCloud(){if(!await ensureEntries()){showAdminMsg('Nessun risultato. Carica prima da cloud o da codici.');return;}exportCSV();}
 function loadManual(){
   const lines=document.getElementById('codes-input').value.trim().split('\n').map(l=>l.trim()).filter(l=>l.length>0);
   const entries=[];for(const l of lines){try{entries.push(JSON.parse(decodeURIComponent(escape(atob(l)))));}catch(e){}}
