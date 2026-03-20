@@ -18,18 +18,15 @@
 html,body{height:100%;overflow-x:hidden}
 body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text)}
 .app{width:100%;max-width:900px;margin:0 auto;padding:20px;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center}
-
 .topnav{position:fixed;top:0;left:0;right:0;height:48px;background:rgba(15,31,18,.96);border-bottom:1px solid var(--border);display:none;align-items:center;justify-content:space-between;padding:0 16px;z-index:50;backdrop-filter:blur(8px)}
 .topnav-brand{font-size:.85rem;font-weight:600;color:var(--text-dim);display:flex;align-items:center;gap:8px}
 .topnav-brand span{color:var(--green);font-weight:700}
 .topnav-home{background:none;border:1px solid var(--border);color:var(--text-dim);font-family:'Inter',sans-serif;font-size:.78rem;font-weight:500;padding:5px 14px;cursor:pointer;border-radius:4px;transition:all .2s}
 .topnav-home:hover{border-color:var(--green);color:var(--green)}
-
 .screen{display:none;width:100%;animation:fadeUp .4s ease;padding-top:60px}
 .screen.active{display:flex;flex-direction:column;align-items:center}
 #screen-landing.active{padding-top:0}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-
 .btn{font-family:'Inter',sans-serif;font-weight:600;font-size:.9rem;padding:12px 28px;border:1.5px solid var(--green);background:transparent;color:var(--green);cursor:pointer;border-radius:6px;transition:all .2s;letter-spacing:.3px}
 .btn:hover{background:var(--green);color:var(--bg);box-shadow:0 0 24px var(--green-glow)}
 .btn-primary{background:var(--green);color:var(--bg)}
@@ -38,8 +35,6 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text)}
 .btn-outline{border-color:var(--border-light);color:var(--text-dim)}
 .btn-outline:hover{border-color:var(--green);color:var(--green);background:transparent}
 .btn:disabled{opacity:.4;cursor:default;pointer-events:none}
-
-/* LANDING */
 .landing-container{text-align:center;max-width:520px}
 .landing-badge{display:inline-block;padding:5px 14px;border:1px solid var(--border);border-radius:20px;font-size:.75rem;color:var(--text-dim);margin-bottom:28px;letter-spacing:.5px}
 .beta-flag{display:inline-block;padding:3px 10px;background:rgba(107,191,35,.15);border:1px solid var(--green-dark);border-radius:4px;font-size:.7rem;font-weight:700;color:var(--green);letter-spacing:1px;margin-bottom:16px}
@@ -50,8 +45,6 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text)}
 .landing-hint strong{color:var(--text-dim);font-weight:600}
 .admin-link{margin-top:64px;font-size:.7rem;color:var(--text-muted);cursor:pointer;opacity:.3;transition:opacity .2s;letter-spacing:.5px}
 .admin-link:hover{opacity:.7}
-
-/* SETUP */
 .section-title{font-size:1.3rem;font-weight:700;color:var(--white);margin-bottom:4px}
 .section-desc{font-size:.88rem;color:var(--text-dim);margin-bottom:20px}
 .setup-section{width:100%;max-width:550px}
@@ -65,8 +58,13 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text)}
 .avatar-card.selected{border-color:var(--green);background:rgba(107,191,35,.08);box-shadow:0 0 16px var(--green-glow)}
 .avatar-emoji{font-size:2rem;display:block;margin-bottom:4px}
 .avatar-name{font-size:.7rem;color:var(--text-muted);letter-spacing:.5px;font-weight:500}
-
-/* QUIZ */
+.day-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;width:100%;max-width:550px;margin-top:12px}
+.day-card{padding:18px 12px;border:1.5px solid var(--border);background:var(--bg-card);cursor:pointer;text-align:center;border-radius:8px;transition:all .2s}
+.day-card:hover{border-color:var(--green);background:rgba(107,191,35,.04)}
+.day-card.selected{border-color:var(--green);background:rgba(107,191,35,.1)}
+.day-card.locked{opacity:.35;cursor:default;pointer-events:none}
+.day-num{font-size:1.4rem;font-weight:800;color:var(--green)}
+.day-label{font-size:.72rem;color:var(--text-muted);margin-top:4px;line-height:1.3}
 .quiz-header{width:100%;display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding:10px 0;border-bottom:1px solid var(--border)}
 .q-counter{font-size:.9rem;font-weight:600;color:var(--text-dim)}
 .q-score{font-family:'JetBrains Mono',monospace;color:var(--green);font-size:.95rem;font-weight:700}
@@ -85,8 +83,6 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text)}
 .answer-btn.disabled{cursor:default;opacity:.5}
 .answer-color{display:inline-block;width:12px;height:12px;border-radius:3px;flex-shrink:0}
 .ac-1{background:#E53935}.ac-2{background:#1E88E5}.ac-3{background:#F5A623}.ac-4{background:#43A047}
-
-/* FEEDBACK OVERLAY */
 .feedback{position:fixed;top:0;left:0;right:0;bottom:0;display:none;justify-content:center;align-items:center;z-index:100;background:rgba(10,20,12,.9)}
 .feedback.show{display:flex}
 .feedback-content{text-align:center;animation:popIn .3s ease}
@@ -96,8 +92,6 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text)}
 .feedback-points{font-family:'JetBrains Mono',monospace;font-size:1rem;margin-top:6px;color:var(--green)}
 .fb-correct .feedback-text{color:var(--correct)}
 .fb-wrong .feedback-text{color:var(--wrong)}
-
-/* FEEDBACK FORM */
 .feedback-form{width:100%;max-width:550px}
 .fb-card{background:var(--bg-card);border:1.5px solid var(--border);border-radius:12px;padding:28px;margin-bottom:16px}
 .fb-card-title{font-weight:700;font-size:1rem;margin-bottom:16px;color:var(--white)}
@@ -112,8 +106,6 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text)}
 .fb-textarea:focus{border-color:var(--green)}
 .fb-textarea::placeholder{color:var(--text-muted)}
 .char-count{font-size:.72rem;color:var(--text-muted);text-align:right;margin-top:4px}
-
-/* RESULTS */
 .result-card{background:var(--bg-card);border:1.5px solid var(--border);border-radius:12px;padding:32px;width:100%;max-width:480px;text-align:center;position:relative;overflow:hidden}
 .result-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--green-dark),var(--green),var(--green-dark))}
 .result-avatar{font-size:3rem;margin-bottom:6px}
@@ -124,11 +116,9 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text)}
 .result-stat{text-align:center}
 .result-stat-val{font-family:'JetBrains Mono',monospace;font-size:1.2rem;font-weight:700}
 .result-stat-label{font-size:.68rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px}
-.result-code-area{margin-top:18px;padding:14px;background:var(--bg);border:1px solid var(--border);border-radius:8px}
+.result-code-area{margin-top:14px;padding:14px;background:var(--bg);border:1px solid var(--border);border-radius:8px}
 .result-code-label{font-size:.72rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;font-weight:600}
 .result-code{font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--green);word-break:break-all;user-select:all;line-height:1.4}
-
-/* PODIUM */
 .podium-container{text-align:center;width:100%;max-width:600px}
 .countdown-num{font-family:'JetBrains Mono',monospace;font-size:8rem;font-weight:800;color:var(--green);text-shadow:0 0 60px var(--green-glow);animation:countPulse 1s ease;line-height:1}
 @keyframes countPulse{0%{transform:scale(1.4);opacity:0}40%{transform:scale(1);opacity:1}100%{opacity:1}}
@@ -150,8 +140,6 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text)}
 .farewell-text{font-size:1.8rem;font-weight:700;color:var(--white)}
 .farewell-sub{font-size:1rem;color:var(--text-dim);margin-top:8px}
 .farewell-emoji{font-size:2.5rem;margin-bottom:12px}
-
-/* ADMIN */
 .admin-section{width:100%;max-width:700px}
 .score-textarea{width:100%;min-height:100px;padding:12px;font-family:'JetBrains Mono',monospace;font-size:.75rem;background:var(--bg2);border:1.5px solid var(--border);color:var(--text);resize:vertical;outline:none;border-radius:6px}
 .score-textarea:focus{border-color:var(--green)}
@@ -173,21 +161,22 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text)}
 .q-result.q-ok{border-color:rgba(76,175,80,.3);color:var(--correct)}
 .q-result.q-no{border-color:rgba(229,57,53,.2);color:var(--wrong)}
 .q-group-label{font-size:.68rem;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin:8px 0 4px;display:block}
-
+.day-filter{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.day-filter-btn{padding:6px 16px;border:1.5px solid var(--border);background:var(--bg2);color:var(--text-dim);font-size:.8rem;font-weight:600;cursor:pointer;border-radius:6px;transition:all .2s;font-family:'Inter',sans-serif}
+.day-filter-btn:hover{border-color:var(--green);color:var(--green)}
+.day-filter-btn.active{background:var(--green);color:var(--bg);border-color:var(--green)}
 @media(max-width:600px){
   .answers-grid{grid-template-columns:1fr}
   .avatar-grid{grid-template-columns:repeat(4,1fr)}
   .rating-row{flex-direction:column;align-items:flex-start;gap:8px}
   .podium-block{width:90px}
   .podium-visual{gap:8px}
-  .podium-emoji{font-size:2rem}
-  .podium-name{font-size:.85rem}
+  .day-grid{grid-template-columns:repeat(2,1fr)}
 }
 </style>
 </head>
 <body>
 <div class="app" id="app">
-
 <nav class="topnav" id="topnav">
   <div class="topnav-brand">Avvale <span>OneStream Academy</span></div>
   <button class="topnav-home" onclick="goHome()">Home</button>
@@ -196,13 +185,11 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text)}
 <!-- LANDING -->
 <div class="screen active" id="screen-landing">
   <div class="landing-container">
-    <div class="beta-flag">🇮🇹 ITA-VERSION · BETA · 23 MARZO 2026</div>
+    <div class="beta-flag">🇮🇹 ITA-VERSION · BETA · MARZO 2026</div>
     <div class="landing-badge">Avvale · OneStream Academy</div>
     <h1 class="landing-title">Knowledge <span>Quiz</span></h1>
     <p class="landing-sub">Metti alla prova quello che hai imparato oggi. Rispondi veloce, scala la classifica.</p>
-    <div>
-      <button class="btn btn-primary" onclick="showScreen('screen-setup')">Inizia il Quiz</button>
-    </div>
+    <div><button class="btn btn-primary" onclick="showScreen('screen-dayselect')">Inizia il Quiz</button></div>
     <div class="landing-hint">
       🎬 Il caso di studio che accompagna questa Academy si ispira a una certa catena di ristoranti di Albuquerque. <strong>Se ricordi Gus che spiega il cubo multidimensionale, ricorderai il cubo multidimensionale.</strong>
     </div>
@@ -217,19 +204,25 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text)}
   </div>
 </div>
 
+<!-- DAY SELECT -->
+<div class="screen" id="screen-dayselect">
+  <div class="section-title">Scegli il giorno</div>
+  <p class="section-desc">Seleziona il quiz della giornata</p>
+  <div class="day-grid" id="day-grid"></div>
+  <div style="margin-top:18px"><button class="btn btn-sm btn-outline" onclick="showScreen('screen-landing')">← Indietro</button></div>
+</div>
+
 <!-- SETUP -->
 <div class="screen" id="screen-setup">
   <div class="setup-section">
     <div class="beta-flag">🇮🇹 ITA-VERSION · BETA</div>
     <div class="section-title">Preparati</div>
-    <p class="section-desc">Day 1 – 23 Marzo 2026</p>
-    <div class="label">Il tuo nome</div>
-    <input class="input-field" id="player-name" placeholder="Scrivi il tuo nome..." maxlength="20" autocomplete="off">
+    <p class="section-desc" id="selected-day-label"></p>
+    <div class="label">Nome e Cognome</div>
+    <input class="input-field" id="player-name" placeholder="Nome e Cognome (no pseudonimi!)" maxlength="30" autocomplete="off">
     <div class="label">Scegli il tuo personaggio</div>
     <div class="avatar-grid" id="avatar-grid"></div>
-    <div style="margin-top:24px;text-align:center">
-      <button class="btn btn-primary" onclick="startQuiz()" id="btn-start" disabled>Inizia</button>
-    </div>
+    <div style="margin-top:24px;text-align:center"><button class="btn btn-primary" onclick="startQuiz()" id="btn-start" disabled>Inizia</button></div>
   </div>
 </div>
 
@@ -252,7 +245,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text)}
     <p class="section-desc">Il tuo feedback ci aiuta a migliorare l'Academy</p>
     <div class="fb-card">
       <div class="fb-card-title">Valutazione della giornata</div>
-      <div class="rating-row"><div class="rating-label">Qualità della lezione</div><div class="rating-stars" data-rating="r_lesson"></div></div>
+      <div class="rating-row"><div class="rating-label">Utilità del materiale didattico</div><div class="rating-stars" data-rating="r_lesson"></div></div>
       <div class="rating-row"><div class="rating-label">Comprensione dei contenuti</div><div class="rating-stars" data-rating="r_comprehension"></div></div>
       <div class="rating-row"><div class="rating-label">Ritmo e coinvolgimento</div><div class="rating-stars" data-rating="r_engagement"></div></div>
       <div class="rating-row"><div class="rating-label">Interazione e laboratorio</div><div class="rating-stars" data-rating="r_lab"></div></div>
@@ -262,9 +255,23 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text)}
       <textarea class="fb-textarea" id="fb-suggestion" placeholder="Cosa ha funzionato? Cosa si potrebbe migliorare?" maxlength="250" oninput="updateCharCount()"></textarea>
       <div class="char-count"><span id="char-count">0</span> / 250</div>
     </div>
-    <div style="text-align:center;margin-top:16px">
-      <button class="btn btn-primary" onclick="submitFeedback()">Invia e vedi risultato</button>
+    <div id="week-survey" style="display:none">
+      <div class="fb-card">
+        <div class="fb-card-title">Survey finale settimana</div>
+        <div class="rating-row"><div class="rating-label">Valutazione complessiva della settimana</div><div class="rating-stars" data-rating="r_week"></div></div>
+        <div class="rating-row"><div class="rating-label">Preparazione per il lavoro reale</div><div class="rating-stars" data-rating="r_readiness"></div></div>
+      </div>
     </div>
+    <div id="fun-question" style="margin-top:16px;background:linear-gradient(135deg,rgba(205,127,50,.1),rgba(245,166,35,.06));border:1.5px solid rgba(205,127,50,.3);border-radius:12px;padding:20px 24px;display:none">
+      <div style="font-size:1.4rem;margin-bottom:4px">🐔</div>
+      <div style="font-weight:700;font-size:.95rem;color:var(--white);margin-bottom:14px" id="fun-q-text"></div>
+      <div class="rating-row" style="border:none;padding:4px 0">
+        <div class="rating-label" id="fun-scale-low" style="font-size:.75rem;flex:0;white-space:nowrap;color:var(--text-muted)"></div>
+        <div class="rating-stars" data-rating="r_fun"></div>
+        <div class="rating-label" id="fun-scale-high" style="font-size:.75rem;flex:0;white-space:nowrap;color:var(--text-muted);text-align:right"></div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:16px"><button class="btn btn-primary" onclick="submitFeedback()">Invia e vedi risultato</button></div>
   </div>
 </div>
 
@@ -291,35 +298,30 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text)}
       </div>
     </div>
   </div>
-  <div style="margin-top:20px;text-align:center">
-    <button class="btn btn-sm btn-outline" onclick="goHome()">Home</button>
-  </div>
+  <div style="margin-top:20px;text-align:center"><button class="btn btn-sm btn-outline" onclick="goHome()">Home</button></div>
 </div>
 
 <!-- ADMIN -->
 <div class="screen" id="screen-admin">
   <div class="admin-section">
     <div class="section-title">🔒 Area Facilitatore</div>
-    <p class="section-desc">I risultati degli studenti arrivano automaticamente</p>
+    <p class="section-desc">Seleziona il giorno e gestisci i risultati</p>
+    <div class="day-filter" id="admin-day-filter"></div>
     <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px">
       <button class="btn btn-sm btn-primary" onclick="loadFromCloud()">☁️ Carica risultati</button>
-      <button class="btn btn-sm btn-primary" onclick="launchPodiumFromCloud()">🏆 Genera Classifica</button>
-      <button class="btn btn-sm btn-outline" onclick="showReportFromCloud()">📊 Report completo</button>
-      <button class="btn btn-sm btn-outline" onclick="exportCSVFromCloud()">⬇️ Esporta CSV</button>
-      <button class="btn btn-sm btn-outline" onclick="resetCloud()">🗑️ Reset dati</button>
+      <button class="btn btn-sm btn-primary" onclick="launchPodiumFromCloud()">🏆 Classifica</button>
+      <button class="btn btn-sm btn-outline" onclick="showReportFromCloud()">📊 Report</button>
+      <button class="btn btn-sm btn-outline" onclick="exportCSVFromCloud()">⬇️ CSV</button>
+      <button class="btn btn-sm btn-outline" onclick="resetCloud()">🗑️ Reset</button>
       <button class="btn btn-sm btn-outline" onclick="goHome()">← Home</button>
     </div>
-    <div id="cloud-admin-status" style="font-size:.85rem;margin-bottom:12px;color:var(--text-dim)"></div>
-    <div id="cloud-entries-count" style="font-size:.85rem;margin-bottom:16px;display:none">
-      <span style="color:var(--green);font-weight:700" id="entries-count">0</span> risultati ricevuti
-    </div>
-    <details style="margin-top:12px;border:1px solid var(--border);border-radius:8px;padding:12px">
-      <summary style="font-size:.82rem;color:var(--text-muted);cursor:pointer">Fallback manuale (incolla codici)</summary>
+    <div id="cloud-admin-status" style="font-size:.85rem;margin-bottom:8px;color:var(--text-dim)"></div>
+    <div id="cloud-entries-count" style="font-size:.85rem;margin-bottom:16px;display:none"><span style="color:var(--green);font-weight:700" id="entries-count">0</span> risultati per questo giorno</div>
+    <details style="border:1px solid var(--border);border-radius:8px;padding:12px">
+      <summary style="font-size:.82rem;color:var(--text-muted);cursor:pointer">Fallback manuale</summary>
       <div style="margin-top:10px">
-        <textarea class="score-textarea" id="codes-input" placeholder="Incolla qui i codici risultato, uno per riga..."></textarea>
-        <div style="margin-top:8px;display:flex;gap:10px">
-          <button class="btn btn-sm btn-outline" onclick="loadManual()">Carica da codici</button>
-        </div>
+        <textarea class="score-textarea" id="codes-input" placeholder="Incolla codici, uno per riga..."></textarea>
+        <div style="margin-top:8px"><button class="btn btn-sm btn-outline" onclick="loadManual()">Carica da codici</button></div>
       </div>
     </details>
     <div id="admin-msg" style="display:none;font-size:.85rem;color:var(--wrong);margin-top:8px"></div>
@@ -327,7 +329,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text)}
   </div>
 </div>
 
-<!-- PODIUM CEREMONY -->
+<!-- PODIUM -->
 <div class="screen" id="screen-podium">
   <div class="podium-container">
     <div id="countdown-area" style="min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center">
@@ -336,110 +338,153 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text)}
     </div>
     <div id="podium-stage" style="display:none">
       <div class="podium-visual">
-        <div class="podium-slot" id="slot-2">
-          <div class="podium-player"><span class="podium-emoji" id="p2-emoji"></span><div class="podium-name" id="p2-name"></div><div class="podium-pts" id="p2-pts"></div></div>
-          <div class="podium-block podium-2">2</div>
-        </div>
-        <div class="podium-slot" id="slot-1">
-          <div class="podium-player"><span class="podium-emoji" id="p1-emoji"></span><div class="podium-name" id="p1-name"></div><div class="podium-pts" id="p1-pts"></div></div>
-          <div class="podium-block podium-1">1</div>
-        </div>
-        <div class="podium-slot" id="slot-3">
-          <div class="podium-player"><span class="podium-emoji" id="p3-emoji"></span><div class="podium-name" id="p3-name"></div><div class="podium-pts" id="p3-pts"></div></div>
-          <div class="podium-block podium-3">3</div>
-        </div>
+        <div class="podium-slot" id="slot-2"><div class="podium-player"><span class="podium-emoji" id="p2-emoji"></span><div class="podium-name" id="p2-name"></div><div class="podium-pts" id="p2-pts"></div></div><div class="podium-block podium-2">2</div></div>
+        <div class="podium-slot" id="slot-1"><div class="podium-player"><span class="podium-emoji" id="p1-emoji"></span><div class="podium-name" id="p1-name"></div><div class="podium-pts" id="p1-pts"></div></div><div class="podium-block podium-1">1</div></div>
+        <div class="podium-slot" id="slot-3"><div class="podium-player"><span class="podium-emoji" id="p3-emoji"></span><div class="podium-name" id="p3-name"></div><div class="podium-pts" id="p3-pts"></div></div><div class="podium-block podium-3">3</div></div>
       </div>
       <div class="podium-base"></div>
     </div>
     <div class="farewell" id="farewell">
       <div class="farewell-emoji">👏</div>
-      <div class="farewell-text">Ottimo lavoro, tutti!</div>
-      <div class="farewell-sub">A domani per il Day 2.</div>
+      <div class="farewell-text" id="farewell-text">Ottimo lavoro, tutti!</div>
+      <div class="farewell-sub" id="farewell-sub">A domani!</div>
+      <div id="egg-showcase" style="margin-top:24px;padding:16px;background:rgba(205,127,50,.08);border:1px solid rgba(205,127,50,.25);border-radius:8px;display:none;text-align:left;max-width:500px;margin-left:auto;margin-right:auto">
+        <div style="font-size:.85rem;font-weight:700;color:var(--bronze);margin-bottom:10px">🐔 Risposte assurde del giorno</div>
+        <div id="egg-showcase-content" style="font-size:.82rem;color:var(--text-dim);line-height:1.6"></div>
+      </div>
+      <div id="egg-showcase-clean" style="margin-top:16px;font-size:.85rem;color:var(--text-muted);display:none">🐔 Nessuno ha abboccato al pollo oggi. Bravi!</div>
+      <div id="fun-result" style="margin-top:20px;padding:16px 20px;background:linear-gradient(135deg,rgba(205,127,50,.1),rgba(245,166,35,.06));border:1.5px solid rgba(205,127,50,.3);border-radius:12px;display:none;text-align:center;max-width:500px;margin-left:auto;margin-right:auto">
+        <div style="font-size:2rem;margin-bottom:6px">🐔</div>
+        <div id="fun-result-q" style="font-size:.85rem;color:var(--text-dim);margin-bottom:8px;font-style:italic"></div>
+        <div id="fun-result-val" style="font-size:2rem;font-weight:800;color:var(--gold);font-family:'JetBrains Mono',monospace"></div>
+        <div id="fun-result-label" style="font-size:.78rem;color:var(--text-muted);margin-top:4px"></div>
+      </div>
       <div style="margin-top:24px"><button class="btn btn-sm btn-outline" onclick="backToAdmin()">← Area facilitatore</button></div>
     </div>
   </div>
 </div>
 
-<!-- QUIZ ANSWER FEEDBACK OVERLAY -->
-<div class="feedback" id="feedback">
-  <div class="feedback-content" id="feedback-content"></div>
-</div>
-
+<div class="feedback" id="feedback"><div class="feedback-content" id="feedback-content"></div></div>
 </div>
 
 <script>
-const CLUSTERS={base:"Concetti base",tokens:"Tokens & Notation",case:"Caso di studio",design:"Design",lab:"Laboratorio"};
-const QUESTIONS = [
-  {q:"Cos'è un Cube in OneStream?",a:["Una dashboard di reportistica","Una struttura organizzativa che contiene i dati","Un tipo di business rule","Uno strumento di backup"],c:1,t:25,g:"base"},
-  {q:"In quali due categorie si dividono le dimensioni OneStream?",a:["Configurable e System-Defined","Statiche e Dinamiche","Standard e Custom","Primarie e Secondarie"],c:0,t:20,g:"base"},
-  {q:"Quale token rappresenta la dimensione Entity?",a:["D#","E#","EN#","ET#"],c:1,t:15,g:"tokens"},
-  {q:"Quante dimensioni User Defined supporta OneStream?",a:["4","6","8","10"],c:2,t:15,g:"tokens"},
-  {q:"Dove si creano e gestiscono le dimensioni configurabili?",a:["System Settings","Application Properties","Dimension Library","Cube Admin"],c:2,t:20,g:"tokens"},
-  {q:"Cosa descrivono le dimensioni in OneStream?",a:["Memorizzano direttamente i dati","Organizzano i dati in gerarchie e liste di membri","Calcolano formule","Definiscono i permessi utente"],c:1,t:25,g:"base"},
-  {q:"Qual è il token della dimensione Account?",a:["AC#","A#","ACC#","AT#"],c:1,t:15,g:"tokens"},
-  {q:"Quante valute sono configurate nel caso LPH?",a:["3 (USD, EUR, GBP)","5","7 (AUD, CAD, EUR, GBP, JPY, MXN, USD)","Tutte le valute mondiali"],c:2,t:25,g:"case"},
-  {q:"In quanti continenti opera Los Pollos Hermanos nel caso di studio?",a:["2","3","4","5"],c:2,t:15,g:"case"},
-  {q:"Cos'è un Data Unit in OneStream?",a:["Un template di report","Un gruppo di sicurezza","Un'unità di lavoro per caricare, calcolare e salvare dati","Un tipo di business rule"],c:2,t:25,g:"base"},
-  {q:"Quale dimensione è derivata dalla dimensione Entity?",a:["Account","Flow","Intercompany","User Defined 1"],c:2,t:20,g:"design"},
-  {q:"Cosa significa 'extensibility' nelle dimensioni?",a:["Aggiungere nuovi cubi","Far crescere le dimensioni senza cambiare la struttura del cubo","Convertire a tipo dinamico","Unire due dimensioni"],c:1,t:25,g:"design"},
-  {q:"Qual è il rischio principale di una dimensione piatta senza livelli gerarchici?",a:["Login più lento","Redesign costoso quando il business cresce","Costi di licenza più alti","Vulnerabilità di sicurezza"],c:1,t:25,g:"design"},
-  {q:"Come si chiama il processo di importazione dei metadata delle dimensioni?",a:["Data Push","Load/Extract","Sync Dimensions","Metadata Refresh"],c:1,t:20,g:"lab"},
-  {q:"Qual è la prima cosa da verificare prima di creare un Cube?",a:["Che il workflow sia configurato","Che le dimensioni siano popolate","Che i report siano pronti","Che gli utenti siano creati"],c:1,t:20,g:"lab"}
-];
+// ============================================================
+// QUIZ DATA — ALL 5 DAYS
+// ============================================================
+const DAYS={
+day1:{title:"Day 1",subtitle:"Dimensioni & Data Model",date:"23 Marzo",farewell:"A domani per il Day 2!",active:true,
+  fun:{q:"Mangeresti da Los Pollos Hermanos?",low:"Mai nella vita",high:"Ci vado domani"},
+  clusters:{base:"Concetti base",tokens:"Tokens & Notation",design:"Design",lab:"Laboratorio"},
+  questions:[
+    {q:"Cos'è un Cube in OneStream?",a:["Una dashboard di reportistica","Una struttura organizzativa che contiene i dati","Un tipo di business rule","Uno strumento di backup"],c:1,t:25,g:"base"},
+    {q:"In quali due categorie si dividono le dimensioni OneStream?",a:["Configurable e System-Defined","Statiche e Dinamiche","Standard e Custom","Primarie e Secondarie"],c:0,t:20,g:"base"},
+    {q:"Quale token rappresenta la dimensione Entity?",a:["D#","E#","EN#","ET#"],c:1,t:15,g:"tokens"},
+    {q:"Quante dimensioni User Defined supporta OneStream?",a:["4","6","8","10"],c:2,t:15,g:"tokens"},
+    {q:"Dove si creano e gestiscono le dimensioni configurabili?",a:["System Settings","Application Properties","Dimension Library","Cube Admin"],c:2,t:20,g:"tokens"},
+    {q:"Cosa descrivono le dimensioni in OneStream?",a:["Memorizzano direttamente i dati","Organizzano i dati in gerarchie e liste di membri","Calcolano formule","Definiscono i permessi utente"],c:1,t:25,g:"base"},
+    {q:"Quali sono i modi per creare membri nelle dimensioni OneStream?",a:["Solo dalla Dimension Library manualmente","Manual Input, Application Load/Extract, Metadata Builder Add-In, Business Rule","Solo via import XML","Solo via Business Rule e SQL"],c:1,t:30,g:"lab"},
+    {q:"Cosa deve riflettere il metodo scelto per caricare i metadata?",a:["La velocità di esecuzione","Stabilità della struttura, frequenza di cambiamento e modello di governance","Il numero di utenti dell'applicazione","Il tipo di licenza OneStream"],c:1,t:30,g:"design"},
+    {q:"Cos'è un Data Unit in OneStream?",a:["Un template di report","La porzione di pollo fritto servita da Los Pollos Hermanos","Un'unità di lavoro per caricare, calcolare e salvare dati","Un tipo di business rule"],c:2,t:25,g:"base",e:1},
+    {q:"Quale dimensione è derivata dalla dimensione Entity?",a:["Account","Flow","Intercompany","User Defined 1"],c:2,t:20,g:"design"},
+    {q:"Cos'è la dimension extensibility in OneStream?",a:["Aggiungere nuovi cubi all'applicazione","Aggiungere livelli gerarchici alle dimensioni senza cambiare la struttura del cubo né ricaricare lo storico","Convertire dimensioni standard in tipo dinamico","Unire due dimensioni in una sola"],c:1,t:30,g:"design"},
+    {q:"Qual è il rischio principale di una dimensione piatta senza livelli gerarchici?",a:["Login più lento","Redesign costoso quando il business cresce","Costi di licenza più alti","Vulnerabilità di sicurezza"],c:1,t:25,g:"design"},
+    {q:"Cosa fa il Metadata Builder Excel Add-In?",a:["Genera report Excel dal cubo multidimensionale","Trasforma valori in celle Excel in stringhe XML da importare via Load/Extract","Carica dati finanziari direttamente nel cubo","Crea dashboard automatiche da spreadsheet"],c:1,t:25,g:"lab"},
+    {q:"Cosa è possibile fare con l'Excel Add-In di OneStream?",a:["Solo esportare report in PDF","Solo inserire dati nel cubo","Leggere dati dal cubo e inserire/modificare dati tramite Quick View","Solo creare nuove dimensioni"],c:2,t:25,g:"lab"},
+    {q:"Qual è la prima cosa da verificare prima di creare un Cube?",a:["Che il workflow sia configurato","Che le dimensioni siano popolate","Che i report siano pronti","Che gli utenti siano creati"],c:1,t:20,g:"lab"}
+]},
+day2:{title:"Day 2",subtitle:"Prodotto, Gerarchia & Cube",date:"24 Marzo",farewell:"A domani per il Day 3!",active:true,
+  fun:{q:"Quanto ti fidi di Gus come CFO della tua azienda?",low:"Lo licenzio subito",high:"Gli do le chiavi"},
+  clusters:{prodotto:"Prodotto & Gerarchia",caricamento:"Metodi di caricamento",cube:"Cube",design:"Design"},
+  questions:[
+    {q:"Qual è la prima dimensione caricata nel Day 1, e quale nel Day 2?",a:["Account nel Day 1, Flow nel Day 2","Entity nel Day 1, Prodotto nel Day 2","Scenario nel Day 1, Entity nel Day 2","Flow nel Day 1, Account nel Day 2"],c:1,t:20,g:"prodotto"},
+    {q:"In una gerarchia Prodotto ben progettata, cosa rappresentano i livelli intermedi?",a:["Codici numerici progressivi","Categorie, sottocategorie e famiglie per aggregare i dati","Copie di backup dei dati","Riferimenti a tabelle SQL esterne"],c:1,t:25,g:"prodotto"},
+    {q:"Cos'è una gerarchia alternativa in OneStream?",a:["Una copia della gerarchia principale","Un modo diverso di raggruppare gli stessi membri base sotto parent diversi","Un backup automatico della dimensione","Una gerarchia creata automaticamente dal sistema"],c:1,t:25,g:"prodotto"},
+    {q:"Perché la dimensione Prodotto è un buon esempio per l'extensibility?",a:["Perché non cambia mai","Perché i prodotti cambiano frequentemente e la struttura deve crescere senza redesign","Perché è l'unica dimensione configurabile","Perché è sempre piatta"],c:1,t:25,g:"prodotto"},
+    {q:"Quale metodo di caricamento è consigliato per il Prodotto in questo lab?",a:["Manual Input","Business Rule","Excel Metadata Builder","Import CSV diretto"],c:2,t:20,g:"caricamento"},
+    {q:"Cosa produce il Metadata Builder Excel Add-In come output?",a:["Un file PDF","Stringhe XML da copiare in un file .xml e caricare via Load/Extract","Una connessione ODBC","Un backup del cubo"],c:1,t:25,g:"caricamento"},
+    {q:"Quando è appropriato usare il Manual Input dalla Dimension Library?",a:["Sempre, è il metodo migliore","Per correzioni singole o one-off, non per il caricamento iniziale","Solo per dimensioni con più di 100 membri","Mai, è deprecato"],c:1,t:25,g:"caricamento"},
+    {q:"Cosa distingue il caricamento via Business Rule dagli altri metodi?",a:["È il più semplice","È automatizzato e può gestire logica dinamica, ma ha complessità maggiore","Non richiede conoscenze tecniche","Funziona solo con file CSV"],c:1,t:25,g:"caricamento"},
+    {q:"Quante Dimension Type deve contenere ogni Cube in OneStream?",a:["Solo quelle che servono","Un contenitore cubico per conservare il pollo fritto","18 (tutte le dimension type definite)","Massimo 8"],c:2,t:25,g:"cube",e:1},
+    {q:"Cosa sono gli Scenario Type in relazione ai Cube?",a:["Report predefiniti","Permettono di cambiare le dimensioni Data Unit per ogni Scenario all'interno dello stesso Cube","Copie del cubo per il backup","Template di importazione"],c:1,t:30,g:"cube"},
+    {q:"Qual è il percorso per creare un Cube in OneStream?",a:["System → New Cube","Application → Cubes → Create Cube","Workflow → Add Cube","Dimension Library → Create Cube"],c:1,t:20,g:"cube"},
+    {q:"Quale prerequisito è necessario prima di creare un Cube?",a:["Configurare il workflow","Che le dimensioni siano popolate","Creare i report","Importare i dati finanziari"],c:1,t:20,g:"cube"},
+    {q:"In OneStream, qual è la differenza tra Horizontal e Vertical Extensibility?",a:["Non c'è differenza","Horizontal varia le dimensioni per Scenario Type nello stesso Cube. Vertical spezza la gerarchia Entity in Cube multipli collegati.","Horizontal è per Entity, Vertical è per Account","Horizontal richiede più Cube, Vertical usa un solo Cube"],c:1,t:30,g:"design"},
+    {q:"Cosa succede ai report se aggiungi un nuovo prodotto sotto una famiglia esistente?",a:["Vanno tutti rifatti","Continuano a funzionare senza modifiche","Si cancellano automaticamente","Richiedono un reload dello storico"],c:1,t:25,g:"design"},
+    {q:"Come si può variare la dimensionalità tra Scenario Type nello stesso Cube?",a:["Non è possibile","Assegnando dimensioni diverse per ogni Scenario Type nelle impostazioni del Cube","Creando un cubo separato per ogni scenario","Modificando il database SQL direttamente"],c:1,t:30,g:"design"}
+]},
+day3:{title:"Day 3",subtitle:"Workflow & Consolidamento",date:"25 Marzo",farewell:"A domani per il Day 4!",active:true,
+  fun:{q:"Assumeresti Gus come Project Manager del tuo prossimo progetto OneStream?",low:"Neanche per scherzo",high:"Lo voglio nel team"},
+  clusters:{wfbase:"Workflow base",config:"Configurazione",consolid:"Consolidamento",lab:"Laboratorio"},
+  questions:[
+    {q:"A cosa serve creare un Workflow in OneStream?",a:["Generare report automaticamente","Organizzare, controllare e automatizzare i processi di raccolta, validazione e approvazione dei dati","Creare dimensioni dinamiche","Gestire le licenze utente"],c:1,t:25,g:"wfbase"},
+    {q:"Quali sono i tre elementi che definiscono il Workflow POV?",a:["Entity, Account, Flow","Cube, Dimension, Member","Workflow Profile, Scenario, Anno","Import, Validate, Load"],c:2,t:25,g:"wfbase"},
+    {q:"Che tipo di processo simula l'esercizio del Day 3?",a:["Un budget planning annuale","Un month-end close process per dati Actual","Un'analisi di forecasting","Una migrazione di sistema"],c:1,t:20,g:"wfbase"},
+    {q:"Qual è la naming convention suggerita per i Workflow Profile?",a:["WF_001, WF_002","EntityName_FinancialReporting (es. Albuquerque_FinancialReporting)","Profile_DataLoad_v1","Nome libero senza convenzione"],c:1,t:25,g:"wfbase"},
+    {q:"Cos'è un Data Source in OneStream?",a:["Un database esterno","Definisce come leggere e importare i dati da un file sorgente","Un tipo di dimensione","Un componente di reporting"],c:1,t:20,g:"config"},
+    {q:"Cos'è una Transformation Rule?",a:["Una regola di validazione dei dati","Mappa i dati dal sistema sorgente al modello finanziario dell'applicazione","Un filtro per i report","Una formula di calcolo nel cubo"],c:1,t:25,g:"config"},
+    {q:"Qual è la strategia di caricamento usata nell'esercizio per i dati Actual?",a:["Append","Merge","Clear & Replace","Incremental Load"],c:2,t:20,g:"config"},
+    {q:"Cosa fa il Workflow Name 'Process, Confirm, Certify'?",a:["Importa dati automaticamente","Definisce i task che l'utente deve completare: elaborare, confermare e certificare i dati","Crea un backup dei dati","Genera report di varianza"],c:1,t:25,g:"config"},
+    {q:"Come funziona il cascading locking nel workflow LPH?",a:["Corporate → Region → Site","Tutti contemporaneamente","Site → Region → Corporate (dal basso verso l'alto)","Solo a livello Corporate"],c:2,t:25,g:"consolid"},
+    {q:"Cosa succede durante il passo di Certification?",a:["I dati vengono importati dal file sorgente","Gus Fring certifica personalmente che il pollo è di qualità superiore","L'utente risponde a domande di certificazione e firma i dati con audit trail completo","Il sistema genera i report finali"],c:2,t:25,g:"consolid",e:1},
+    {q:"Quali sono i tre tipi di Workflow Profile che si possono creare?",a:["Import, Export, Delete","Review, Base Input (Data Load), Parent Input (Parent Adjustments)","Read, Write, Execute","Standard, Premium, Enterprise"],c:1,t:30,g:"consolid"},
+    {q:"Quale dimensione collega la gerarchia Workflow al Cubo analitico?",a:["Entity","Scenario","Origin","Consolidation"],c:2,t:20,g:"consolid"},
+    {q:"Quale entità è usata come esempio nell'Exercise 1?",a:["LPH_Corporate","LPH_Albuquerque","LPH_Houston","LPH_Consolidation"],c:1,t:15,g:"lab"},
+    {q:"Che tipo di file viene caricato nell'Exercise 1?",a:["Un file XML con metadata","Un file CSV con due colonne: Account e Amount","Un file Excel con tutte le dimensioni","Un file JSON con dati di budget"],c:1,t:20,g:"lab"},
+    {q:"Quale prerequisito è necessario prima di creare un Workflow?",a:["Aver configurato i report","Aver creato il Cube","Aver importato i dati storici","Aver definito le Business Rule"],c:1,t:20,g:"lab"}
+]},
+day4:{title:"Day 4",subtitle:"Reporting & Dashboard",date:"26 Marzo",farewell:"A domani per il Day 5, ultimo giorno!",active:true,
+  fun:{q:"Se Gus aprisse una Academy di cucina, ti iscriveresti?",low:"Preferisco i surgelati",high:"Già iscritto"},
+  clusters:{approccio:"Approccio reporting",cubeview:"Cube View",bidash:"BI Viewer & Dashboard",lab:"Laboratorio"},
+  questions:[
+    {q:"Qual è il primo passo consigliato prima di costruire i report?",a:["Scrivere il codice delle Business Rule","Fare un Report Inventory: capire cosa serve al business prima di costruire","Creare tutte le Cube View possibili","Importare i dati di test"],c:1,t:25,g:"approccio"},
+    {q:"Quale approccio segue il Day 4 per il reporting?",a:["Code-first: scrivere prima il codice","Business-first: ragionare prima di costruire","Template-first: copiare report esistenti","Data-first: caricare tutti i dati prima"],c:1,t:20,g:"approccio"},
+    {q:"In quale valuta il CFO di LPH vuole vedere i dati?",a:["EUR","Nella valuta locale di ogni entità","USD, per poter confrontare tutte le entità","GBP"],c:2,t:20,g:"approccio"},
+    {q:"Quali KPI sono richiesti nel P&L Cube View dell'esercizio?",a:["Solo Revenue e Expenses","ROI, ROE, ROIC","Gross Margin %, EBITDA Margin %, OpEx Ratio %","Solo Net Income"],c:2,t:25,g:"approccio"},
+    {q:"Cos'è una Cube View in OneStream?",a:["Un grafico 3D del cubo","Un report che visualizza dati dal cubo con righe, colonne e un POV","Un editor di dimensioni","Un log di sistema"],c:1,t:20,g:"cubeview"},
+    {q:"Cosa definisce il POV di una Cube View?",a:["Il colore del report","Le dimensioni fisse (Entity, Scenario, Time, Consolidation) che fanno da contesto","Il numero di righe","Il tipo di grafico"],c:1,t:25,g:"cubeview"},
+    {q:"Perché nella Cube View del lab si usa il Consolidation Member 'USD'?",a:["Per motivi estetici","Per avere tutti i dati nella stessa valuta e rendere confrontabili le entità","Perché è l'unica opzione","Per convertire in dollari automaticamente"],c:1,t:25,g:"cubeview"},
+    {q:"Dove si crea una Cube View in OneStream?",a:["System → Reports","OnePlace → Menu del Giorno → Ordinazioni Speciali","Application → Cube Views → Create Cube View","Workflow → New View"],c:2,t:20,g:"cubeview",e:1},
+    {q:"Cos'è il BI Viewer in OneStream?",a:["Un browser web integrato","Un motore interattivo per creare visualizzazioni BI (grafici, mappe, griglie, gauge)","Un editor di testo","Uno strumento di backup"],c:1,t:25,g:"bidash"},
+    {q:"Cos'è un Data Adapter?",a:["Un cavo di rete","Un componente che fornisce i dati a un BI Viewer, collegandosi a una Cube View o altra sorgente","Un tipo di dimensione","Un file di configurazione"],c:1,t:25,g:"bidash"},
+    {q:"Qual è il tipo di Data Adapter usato nel lab per il report mensile?",a:["SQL Query","Cube View MD","REST API","CSV Import"],c:1,t:20,g:"bidash"},
+    {q:"Cosa rende la dashboard del lab 'dinamica'?",a:["Ha animazioni grafiche","Si aggiorna automaticamente in base al workflow e ai parametri scelti dall'utente","Cambia colore ogni ora","È visibile solo da mobile"],c:1,t:25,g:"bidash"},
+    {q:"Cosa deve aver completato lo studente prima del lab di reporting?",a:["Solo la creazione del Cube","Aver caricato i dati nel cubo e aver eseguito traduzione e consolidamento per tutti i periodi","Solo l'importazione delle dimensioni","Solo la configurazione del workflow"],c:1,t:25,g:"lab"},
+    {q:"Nell'esercizio Cube View P&L, su quali Scenario si lavora?",a:["Solo Actual","Solo Budget","Actual e Budget","Forecast e Plan"],c:2,t:20,g:"lab"},
+    {q:"Come si chiama la Cube View creata nel lab per il trend dei ricavi?",a:["Revenue_Analysis","MonthlyReport_v1","LosPollosHermanos_Trend","CFO_Dashboard_Main"],c:2,t:20,g:"lab"}
+]},
+day5:{title:"Day 5",subtitle:"Budget, Finance Rules & Chiusura",date:"27 Marzo",farewell:"Complimenti! L'Academy è conclusa. In bocca al lupo!",active:true,
+  fun:{q:"Dopo questa settimana, quanto ti senti pronto per aprire la tua filiale di Los Pollos Hermanos?",low:"Non so accendere il forno",high:"Apro domani a Bologna"},
+  clusters:{budget:"Budget & P&L",finance:"Finance Rules",calcoli:"Calcoli & Formule",settimana:"Settimana"},
+  questions:[
+    {q:"Qual è l'obiettivo dell'esercizio Budget del Day 5?",a:["Creare nuove dimensioni","Creare un report P&L di confronto Actual vs Budget","Configurare il workflow","Importare dati da un ERP"],c:1,t:20,g:"budget"},
+    {q:"Come si calcola una varianza Actual vs Budget in una Cube View?",a:["Solo manualmente in Excel","Con Cube View math (sottrazione tra colonne) oppure con UD8 Dynamic Calculation","Non è possibile in OneStream","Solo con Business Rule"],c:1,t:30,g:"budget"},
+    {q:"Qual è il vantaggio di UD8 Dynamic Calculation rispetto a Cube View math?",a:["È più veloce","Coerenza tra tutti i report: la formula è scritta una volta sul membro, non replicata in ogni Cube View","Non richiede calcoli","Funziona solo offline"],c:1,t:30,g:"budget"},
+    {q:"I Dynamic Calculation Member dove memorizzano il risultato?",a:["Nel database SQL","In un file XML","Non lo memorizzano: calcolano al volo ogni volta che il membro è chiamato","In una tabella di staging"],c:2,t:25,g:"budget"},
+    {q:"Perché il CFO di LPH vuole automatizzare gli aggiustamenti del budget?",a:["Per risparmiare sulle licenze","Perché Gus non tollera imperfezioni: né nel pollo né nel budget","Le correzioni manuali rallentano il processo, creano incertezza e si ripetono ogni ciclo","Per conformità GDPR"],c:2,t:25,g:"finance",e:1},
+    {q:"Cos'è una Finance Business Rule in OneStream?",a:["Una regola di formattazione dei report","Una regola di calcolo eseguibile on-demand o durante consolidamento per automatizzare aggiustamenti","Un filtro per i dati di budget","Un template di importazione"],c:1,t:30,g:"finance"},
+    {q:"Differenza principale tra Member Formula e Business Rule per i calcoli?",a:["Nessuna differenza","Le Member Formula sono su singoli membri e non variano per Scenario. Le Business Rule gestiscono grandi gruppi","Le Member Formula sono più potenti","Le Business Rule sono deprecate"],c:1,t:30,g:"finance"},
+    {q:"Per quale tipo di dati si usano più spesso le Business Rule?",a:["Solo Actual","Solo dati storici","Planning e forecasting, perché i calcoli si applicano a grandi gruppi di Account","Solo consolidamento valutario"],c:2,t:25,g:"finance"},
+    {q:"Cosa fa GetDataCell(VariancePercent(S#Actual,S#BudgetV1))?",a:["Cancella i dati di budget","Calcola la differenza percentuale: ((A-B)/Abs(B)) × 100","Copia i dati da Actual a Budget","Genera un grafico di varianza"],c:1,t:30,g:"calcoli"},
+    {q:"Cosa fa la funzione BWDiff (Better or Worse Difference)?",a:["Elimina le differenze","Calcola la varianza considerando il tipo di Account: positiva per Revenue, invertita per Expense","Confronta due periodi temporali","Calcola il budget dell'anno successivo"],c:1,t:30,g:"calcoli"},
+    {q:"Perché si usa Divide invece dell'operatore '/' in una Cube View?",a:["Per motivi estetici","Per evitare errori di divisione per zero o NoData","Perché '/' non esiste in OneStream","Per performance migliori"],c:1,t:25,g:"calcoli"},
+    {q:"Cos'è un XFBR Business Rule nel contesto del reporting?",a:["Una regola di esportazione","Una regola chiamata dalla Cube View che restituisce dimensionalità (membri), non dati diretti","Un tipo di Data Adapter","Una formula Excel"],c:1,t:30,g:"calcoli"},
+    {q:"Qual è la sequenza corretta dei 5 giorni dell'Academy?",a:["Workflow → Reporting → Dimensioni → Budget → Cube","Dimensioni → Prodotto e Cube → Workflow → Reporting → Budget e Finance Rules","Budget → Reporting → Workflow → Cube → Dimensioni","Reporting → Dimensioni → Budget → Workflow → Cube"],c:1,t:25,g:"settimana"},
+    {q:"Cosa sono i file XML_G0 a XML_G4 distribuiti ogni giorno?",a:["Backup dei report","Checkpoint file per riallineare tutti gli studenti allo stesso stato applicativo","Template di importazione dati","File di configurazione del server"],c:1,t:25,g:"settimana"},
+    {q:"Qual è il principio di design che ha guidato tutta la settimana?",a:["Code-first: programmare prima di tutto","Business-first: capire i requisiti del business prima di costruire la soluzione tecnica","Speed-first: fare tutto il più velocemente possibile","Data-first: importare i dati prima di progettare"],c:1,t:25,g:"settimana"}
+]}
+};
 
 const AVATARS=[{emoji:"📊",name:"Analyst"},{emoji:"🏗️",name:"Architect"},{emoji:"🧪",name:"Tester"},{emoji:"🚀",name:"Builder"},{emoji:"🎯",name:"Strategist"},{emoji:"🔍",name:"Detective"},{emoji:"⚡",name:"Speedster"},{emoji:"🧠",name:"Thinker"}];
 
-let state={playerName:'',avatar:null,currentQ:0,score:0,correct:0,questionTimes:[],answers:[],timerInterval:null,answered:false,ratings:{r_lesson:0,r_comprehension:0,r_engagement:0,r_lab:0},suggestion:''};
+let state={playerName:'',avatar:null,selectedDay:null,currentQ:0,score:0,correct:0,questionTimes:[],answers:[],eggs:[],timerInterval:null,answered:false,ratings:{r_lesson:0,r_comprehension:0,r_engagement:0,r_lab:0,r_week:0,r_readiness:0,r_fun:0},suggestion:''};
 let allEntries=[];
+let adminDayFilter='day1';
 const ADMIN_PW='avvaleacademy2026';
 let adminAuth=false;
 
-// JSONBIN CONFIG
 const JSONBIN_ID='69ba732ab7ec241ddc7c05f8';
 const JSONBIN_KEY='$2a$10$J/Cx7B11BjfNT8ta0aMppOVTR3jwO0x8AKWDmVBxV6pytmjhrpHWK';
 const JSONBIN_URL='https://api.jsonbin.io/v3/b/'+JSONBIN_ID;
-
-// CLOUD: PUSH RESULT
-async function pushToCloud(entry){
-  try{
-    const readRes=await fetch(JSONBIN_URL+'/latest',{headers:{'X-Master-Key':JSONBIN_KEY}});
-    const readData=await readRes.json();
-    const current=readData.record||{results:[]};
-    current.results.push(entry);
-    const writeRes=await fetch(JSONBIN_URL,{method:'PUT',headers:{'Content-Type':'application/json','X-Master-Key':JSONBIN_KEY},body:JSON.stringify(current)});
-    return writeRes.ok;
-  }catch(e){return false;}
-}
-
-// CLOUD: READ ALL RESULTS
-async function readFromCloud(){
-  try{
-    const res=await fetch(JSONBIN_URL+'/latest',{headers:{'X-Master-Key':JSONBIN_KEY}});
-    const data=await res.json();
-    const results=(data.record||{}).results||[];
-    return results.sort((a,b)=>b.s!==a.s?b.s-a.s:(a.avg||999)-(b.avg||999));
-  }catch(e){return[];}
-}
-
-// CLOUD: RESET
-let resetPending=false;
-async function resetCloud(){
-  if(!resetPending){
-    resetPending=true;
-    document.getElementById('cloud-admin-status').innerHTML='<span style="color:var(--wrong)">⚠️ Clicca di nuovo "Reset dati" per confermare la cancellazione</span>';
-    setTimeout(()=>{resetPending=false;document.getElementById('cloud-admin-status').innerHTML='';},5000);
-    return;
-  }
-  resetPending=false;
-  document.getElementById('cloud-admin-status').innerHTML='⏳ Reset in corso...';
-  try{
-    await fetch(JSONBIN_URL,{method:'PUT',headers:{'Content-Type':'application/json','X-Master-Key':JSONBIN_KEY},body:JSON.stringify({results:[]})});
-    document.getElementById('cloud-admin-status').innerHTML='<span style="color:var(--correct)">✅ Dati resettati</span>';
-    document.getElementById('cloud-entries-count').style.display='none';
-    allEntries=[];
-    document.getElementById('report-section').style.display='none';
-  }catch(e){showAdminMsg('Errore nel reset');}
-}
 
 // NAV
 function showScreen(id){
@@ -450,7 +495,7 @@ function showScreen(id){
 }
 function goHome(){clearInterval(state.timerInterval);showScreen('screen-landing');}
 
-// ADMIN ACCESS
+// ADMIN
 function toggleAdminLogin(){
   if(adminAuth){showScreen('screen-admin');return;}
   const el=document.getElementById('admin-login');
@@ -465,38 +510,75 @@ function checkAdminPw(){
 function backToAdmin(){showScreen('screen-admin');}
 function showAdminMsg(msg){const el=document.getElementById('admin-msg');el.textContent=msg;el.style.display='block';setTimeout(()=>el.style.display='none',3000);}
 
+// CLOUD
+async function pushToCloud(entry){
+  try{const r=await fetch(JSONBIN_URL+'/latest',{headers:{'X-Master-Key':JSONBIN_KEY}});const d=await r.json();const cur=d.record||{results:[]};cur.results.push(entry);const w=await fetch(JSONBIN_URL,{method:'PUT',headers:{'Content-Type':'application/json','X-Master-Key':JSONBIN_KEY},body:JSON.stringify(cur)});return w.ok;}catch(e){return false;}
+}
+async function readFromCloud(){
+  try{const r=await fetch(JSONBIN_URL+'/latest',{headers:{'X-Master-Key':JSONBIN_KEY}});const d=await r.json();return(d.record||{}).results||[];}catch(e){return[];}
+}
+let resetPending=false;
+async function resetCloud(){
+  if(!resetPending){resetPending=true;document.getElementById('cloud-admin-status').innerHTML='<span style="color:var(--wrong)">⚠️ Clicca di nuovo Reset per confermare</span>';setTimeout(()=>{resetPending=false;document.getElementById('cloud-admin-status').innerHTML='';},5000);return;}
+  resetPending=false;document.getElementById('cloud-admin-status').innerHTML='⏳ Reset...';
+  try{await fetch(JSONBIN_URL,{method:'PUT',headers:{'Content-Type':'application/json','X-Master-Key':JSONBIN_KEY},body:JSON.stringify({results:[]})});document.getElementById('cloud-admin-status').innerHTML='<span style="color:var(--correct)">✅ Tutti i dati resettati</span>';document.getElementById('cloud-entries-count').style.display='none';allEntries=[];document.getElementById('report-section').style.display='none';}catch(e){showAdminMsg('Errore nel reset');}
+}
+
 // INIT
 function init(){
+  // Day grid
+  const dg=document.getElementById('day-grid');dg.innerHTML='';
+  for(const[k,d]of Object.entries(DAYS)){
+    const div=document.createElement('div');
+    div.className='day-card'+(d.active?'':' locked');
+    div.innerHTML=`<div class="day-num">${d.title}</div><div class="day-label">${d.subtitle}<br>${d.date}</div>`;
+    if(d.active)div.onclick=()=>{document.querySelectorAll('.day-card').forEach(c=>c.classList.remove('selected'));div.classList.add('selected');state.selectedDay=k;document.getElementById('selected-day-label').textContent=d.title+' – '+d.subtitle+' ('+d.date+')';showScreen('screen-setup');};
+    dg.appendChild(div);
+  }
+  // Admin day filter
+  const af=document.getElementById('admin-day-filter');af.innerHTML='';
+  for(const[k,d]of Object.entries(DAYS)){
+    const btn=document.createElement('button');btn.className='day-filter-btn'+(k==='day1'?' active':'');btn.textContent=d.title;
+    btn.onclick=()=>{adminDayFilter=k;af.querySelectorAll('.day-filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.getElementById('cloud-entries-count').style.display='none';document.getElementById('report-section').style.display='none';document.getElementById('cloud-admin-status').innerHTML='';};
+    af.appendChild(btn);
+  }
+  // Avatars
   const grid=document.getElementById('avatar-grid');grid.innerHTML='';
-  AVATARS.forEach((av,i)=>{
-    const d=document.createElement('div');d.className='avatar-card';
-    d.innerHTML=`<span class="avatar-emoji">${av.emoji}</span><span class="avatar-name">${av.name}</span>`;
-    d.onclick=()=>{document.querySelectorAll('.avatar-card').forEach(c=>c.classList.remove('selected'));d.classList.add('selected');state.avatar=i;checkReady();};
-    grid.appendChild(d);
-  });
+  AVATARS.forEach((av,i)=>{const d=document.createElement('div');d.className='avatar-card';d.innerHTML=`<span class="avatar-emoji">${av.emoji}</span><span class="avatar-name">${av.name}</span>`;d.onclick=()=>{document.querySelectorAll('.avatar-card').forEach(c=>c.classList.remove('selected'));d.classList.add('selected');state.avatar=i;checkReady();};grid.appendChild(d);});
   document.getElementById('player-name').addEventListener('input',checkReady);
-  document.querySelectorAll('.rating-stars').forEach(container=>{
-    const key=container.dataset.rating;
-    for(let i=1;i<=5;i++){
-      const btn=document.createElement('button');btn.className='star-btn';btn.textContent=i;
-      btn.onclick=()=>{state.ratings[key]=i;container.querySelectorAll('.star-btn').forEach((b,idx)=>{b.classList.toggle('active',idx<i);});};
-      container.appendChild(btn);
-    }
-  });
+  // Rating stars
+  document.querySelectorAll('.rating-stars').forEach(container=>{const key=container.dataset.rating;for(let i=1;i<=5;i++){const btn=document.createElement('button');btn.className='star-btn';btn.textContent=i;btn.onclick=()=>{state.ratings[key]=i;container.querySelectorAll('.star-btn').forEach((b,idx)=>{b.classList.toggle('active',idx<i);});};container.appendChild(btn);}});
 }
 function checkReady(){document.getElementById('btn-start').disabled=!(document.getElementById('player-name').value.trim()&&state.avatar!==null);}
 function updateCharCount(){document.getElementById('char-count').textContent=document.getElementById('fb-suggestion').value.length;}
+function getQuestions(){return DAYS[state.selectedDay].questions;}
+function getClusters(){return DAYS[state.selectedDay].clusters;}
 
 // QUIZ
 function startQuiz(){
   state.playerName=document.getElementById('player-name').value.trim();
-  if(!state.playerName||state.avatar===null)return;
-  state.currentQ=0;state.score=0;state.correct=0;state.questionTimes=[];state.answers=[];
+  if(!state.playerName||state.avatar===null||!state.selectedDay)return;
+  state.currentQ=0;state.score=0;state.correct=0;state.questionTimes=[];state.answers=[];state.eggs=[];
+  state.ratings={r_lesson:0,r_comprehension:0,r_engagement:0,r_lab:0,r_week:0,r_readiness:0,r_fun:0};
+  state.suggestion='';
+  // Reset rating UI
+  document.querySelectorAll('.star-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('fb-suggestion').value='';document.getElementById('char-count').textContent='0';
+  // Show week survey only on day5
+  document.getElementById('week-survey').style.display=state.selectedDay==='day5'?'block':'none';
+  // Fun LPH question
+  const funData=DAYS[state.selectedDay].fun;
+  if(funData){
+    document.getElementById('fun-question').style.display='block';
+    document.getElementById('fun-q-text').textContent=funData.q;
+    document.getElementById('fun-scale-low').textContent='1 = '+funData.low;
+    document.getElementById('fun-scale-high').textContent='5 = '+funData.high;
+  }
   showScreen('screen-quiz');loadQuestion();
 }
 function loadQuestion(){
-  const q=QUESTIONS[state.currentQ];state.answered=false;
-  document.getElementById('q-counter').textContent=`${state.currentQ+1} / ${QUESTIONS.length}`;
+  const qs=getQuestions(),q=qs[state.currentQ];state.answered=false;
+  document.getElementById('q-counter').textContent=`${state.currentQ+1} / ${qs.length}`;
   document.getElementById('q-score').textContent=`${state.score} pts`;
   document.getElementById('question-text').textContent=q.q;
   document.getElementById('timer-text').textContent=q.t;document.getElementById('timer-text').className='timer-text';
@@ -506,265 +588,197 @@ function loadQuestion(){
   q.a.forEach((ans,i)=>{const btn=document.createElement('button');btn.className='answer-btn';btn.innerHTML=`<span class="answer-color ${colors[i]}"></span>${ans}`;btn.onclick=()=>submitAnswer(i);grid.appendChild(btn);});
   clearInterval(state.timerInterval);
   const start=Date.now(),total=q.t*1000;
-  state.timerInterval=setInterval(()=>{
-    const rem=Math.max(0,total-(Date.now()-start)),s=Math.ceil(rem/1000);
-    document.getElementById('timer-text').textContent=s;bar.style.width=(rem/total*100)+'%';
-    if(s<=5){bar.className='timer-bar danger';document.getElementById('timer-text').className='timer-text danger';}
-    if(rem<=0){clearInterval(state.timerInterval);submitAnswer(-1);}
-  },100);
+  state.timerInterval=setInterval(()=>{const rem=Math.max(0,total-(Date.now()-start)),s=Math.ceil(rem/1000);document.getElementById('timer-text').textContent=s;bar.style.width=(rem/total*100)+'%';if(s<=5){bar.className='timer-bar danger';document.getElementById('timer-text').className='timer-text danger';}if(rem<=0){clearInterval(state.timerInterval);submitAnswer(-1);}},100);
 }
 function submitAnswer(idx){
   if(state.answered)return;state.answered=true;clearInterval(state.timerInterval);
-  const q=QUESTIONS[state.currentQ],ok=idx===q.c;
+  const qs=getQuestions(),q=qs[state.currentQ],ok=idx===q.c;
+  const isEgg=(typeof q.e==='number')&&idx===q.e;
   state.answers.push(ok?1:0);
+  if(isEgg)state.eggs.push({qi:state.currentQ,ans:q.a[idx]});
   const ratio=(parseFloat(document.getElementById('timer-bar').style.width)||0)/100;
-  let pts=0;if(ok){pts=1000+Math.round(500*ratio);state.correct++;}
-  state.score+=pts;state.questionTimes.push(Math.round(q.t*(1-ratio)));
+  let pts=0;
+  if(ok){pts=1000+Math.round(500*ratio);state.correct++;}
+  else if(isEgg){pts=-100;}
+  state.score=Math.max(0,state.score+pts);
+  state.questionTimes.push(Math.round(q.t*(1-ratio)));
   document.querySelectorAll('.answer-btn').forEach((b,i)=>{b.classList.add('disabled');if(i===q.c)b.classList.add('correct');if(i===idx&&!ok)b.classList.add('wrong');});
   const fb=document.getElementById('feedback'),fc=document.getElementById('feedback-content');
-  fc.className='feedback-content '+(ok?'fb-correct':'fb-wrong');
-  fc.innerHTML=ok?`<div class="feedback-icon">✅</div><div class="feedback-text">Corretto!</div><div class="feedback-points">+${pts} pts</div>`:`<div class="feedback-icon">❌</div><div class="feedback-text">Sbagliato</div><div class="feedback-points">+0 pts</div>`;
+  if(ok){
+    fc.className='feedback-content fb-correct';
+    fc.innerHTML=`<div class="feedback-icon">✅</div><div class="feedback-text">Corretto!</div><div class="feedback-points">+${pts} pts</div>`;
+  }else if(isEgg){
+    fc.className='feedback-content fb-wrong';
+    fc.innerHTML=`<div class="feedback-icon" style="font-size:5rem">🐔</div><div class="feedback-text" style="color:var(--wrong)">Ma sei serio?!</div><div class="feedback-points" style="color:var(--wrong)">-100 pts di penalità</div>`;
+  }else{
+    fc.className='feedback-content fb-wrong';
+    fc.innerHTML=`<div class="feedback-icon">❌</div><div class="feedback-text">Sbagliato</div><div class="feedback-points">+0 pts</div>`;
+  }
   fb.classList.add('show');
-  setTimeout(()=>{fb.classList.remove('show');state.currentQ++;state.currentQ<QUESTIONS.length?loadQuestion():showScreen('screen-feedback');},1400);
+  setTimeout(()=>{fb.classList.remove('show');state.currentQ++;state.currentQ<qs.length?loadQuestion():showScreen('screen-feedback');},isEgg?2200:1400);
 }
 
 // FEEDBACK & RESULTS
 function submitFeedback(){state.suggestion=document.getElementById('fb-suggestion').value.trim().substring(0,250);showResultsScreen();}
 async function showResultsScreen(){
+  const qs=getQuestions();
   const avg=state.questionTimes.length?(state.questionTimes.reduce((a,b)=>a+b,0)/state.questionTimes.length).toFixed(1):0;
   document.getElementById('res-avatar').textContent=AVATARS[state.avatar].emoji;
   document.getElementById('res-name').textContent=state.playerName;
   document.getElementById('res-score').textContent=state.score;
   document.getElementById('res-correct').textContent=state.correct;
-  document.getElementById('res-wrong').textContent=QUESTIONS.length-state.correct;
+  document.getElementById('res-wrong').textContent=qs.length-state.correct;
   document.getElementById('res-time').textContent=avg+'s';
-  const data={v:2,n:state.playerName,a:state.avatar,s:state.score,c:state.correct,t:QUESTIONS.length,avg:parseFloat(avg),qa:state.answers,r:state.ratings,sg:state.suggestion,d:'day1',ts:Date.now()};
+  const data={v:3,n:state.playerName,a:state.avatar,s:state.score,c:state.correct,t:qs.length,avg:parseFloat(avg),qa:state.answers,eggs:state.eggs,r:state.ratings,sg:state.suggestion,d:state.selectedDay,ts:Date.now()};
   const code=btoa(unescape(encodeURIComponent(JSON.stringify(data))));
   document.getElementById('res-code').textContent=code;
-  // Show screen immediately
   showScreen('screen-results');
-  document.getElementById('cloud-status').style.display='block';
   document.getElementById('cloud-msg').innerHTML='<span style="color:var(--text-dim)">⏳ Invio risultato...</span>';
   document.getElementById('code-label').textContent='📋 Il tuo codice di backup';
-  // Push to cloud
   const ok=await pushToCloud(data);
-  if(ok){
-    document.getElementById('cloud-msg').innerHTML='<span style="color:var(--correct)">✅ Risultato inviato! Il facilitatore lo vedrà nella classifica.</span>';
-    document.getElementById('code-label').textContent='📋 Codice di backup (salva prima di chiudere, per sicurezza)';
-  }else{
-    document.getElementById('cloud-msg').innerHTML='<span style="color:var(--wrong)">⚠️ Invio automatico fallito. Copia il codice qui sotto e incollalo nella chat di Teams.</span>';
-    document.getElementById('code-label').textContent='📋 Copia questo codice e incollalo nella chat di Teams';
-  }
+  if(ok){document.getElementById('cloud-msg').innerHTML='<span style="color:var(--correct)">✅ Risultato inviato! Il facilitatore lo vedrà nella classifica.</span>';document.getElementById('code-label').textContent='📋 Codice di backup (salva prima di chiudere, per sicurezza)';}
+  else{document.getElementById('cloud-msg').innerHTML='<span style="color:var(--wrong)">⚠️ Invio fallito. Copia il codice qui sotto nella chat di Teams.</span>';document.getElementById('code-label').textContent='📋 Copia questo codice e incollalo nella chat di Teams';}
 }
 function copyCode(){
   const code=document.getElementById('res-code').textContent,btn=document.getElementById('copy-btn'),orig=btn.innerHTML;
   if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(code).then(()=>{btn.innerHTML='✅ Copiato!';setTimeout(()=>btn.innerHTML=orig,2000);});}
-  else{const ta=document.createElement('textarea');ta.value=code;ta.style.cssText='position:fixed;left:-9999px';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');btn.innerHTML='✅ Copiato!';setTimeout(()=>btn.innerHTML=orig,2000);}catch(e){window.getSelection().removeAllRanges();const r=document.createRange();r.selectNodeContents(document.getElementById('res-code'));window.getSelection().addRange(r);}document.body.removeChild(ta);}
+  else{const ta=document.createElement('textarea');ta.value=code;ta.style.cssText='position:fixed;left:-9999px';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');btn.innerHTML='✅ Copiato!';setTimeout(()=>btn.innerHTML=orig,2000);}catch(e){}document.body.removeChild(ta);}
 }
 
-// DECODE
-function decodeEntries(){
-  const lines=document.getElementById('codes-input').value.trim().split('\n').map(l=>l.trim()).filter(l=>l.length>0);
-  const entries=[];
-  for(const l of lines){try{entries.push(JSON.parse(decodeURIComponent(escape(atob(l)))));}catch(e){}}
-  return entries.filter(e=>e.n&&typeof e.s==='number').sort((a,b)=>b.s!==a.s?b.s-a.s:(a.avg||999)-(b.avg||999));
-}
-
-// ADMIN: CLOUD FUNCTIONS
+// ADMIN CLOUD
 async function loadFromCloud(){
   document.getElementById('cloud-admin-status').innerHTML='⏳ Caricamento...';
-  allEntries=await readFromCloud();
-  if(allEntries.length){
-    document.getElementById('cloud-admin-status').innerHTML='<span style="color:var(--correct)">✅ Caricati</span>';
-    document.getElementById('cloud-entries-count').style.display='block';
-    document.getElementById('entries-count').textContent=allEntries.length;
-  }else{
-    document.getElementById('cloud-admin-status').innerHTML='<span style="color:var(--text-muted)">Nessun risultato ancora.</span>';
-    document.getElementById('cloud-entries-count').style.display='none';
-  }
+  const all=await readFromCloud();
+  allEntries=all.filter(e=>e.d===adminDayFilter).sort((a,b)=>b.s!==a.s?b.s-a.s:(a.avg||999)-(b.avg||999));
+  if(allEntries.length){document.getElementById('cloud-admin-status').innerHTML='<span style="color:var(--correct)">✅ Caricati</span>';document.getElementById('cloud-entries-count').style.display='block';document.getElementById('entries-count').textContent=allEntries.length;}
+  else{document.getElementById('cloud-admin-status').innerHTML='<span style="color:var(--text-muted)">Nessun risultato per '+DAYS[adminDayFilter].title+'</span>';document.getElementById('cloud-entries-count').style.display='none';}
 }
-
-async function launchPodiumFromCloud(){
-  await loadFromCloud();
-  if(allEntries.length<1){showAdminMsg('Nessun risultato trovato.');return;}
-  launchPodium();
-}
-
-async function showReportFromCloud(){
-  await loadFromCloud();
-  if(!allEntries.length){showAdminMsg('Nessun risultato trovato.');return;}
-  showReport();
-}
-
-async function exportCSVFromCloud(){
-  await loadFromCloud();
-  if(!allEntries.length){showAdminMsg('Nessun risultato trovato.');return;}
-  exportCSV();
-}
-
+async function launchPodiumFromCloud(){await loadFromCloud();if(allEntries.length<1){showAdminMsg('Nessun risultato.');return;}document.getElementById('farewell-text').textContent='Ottimo lavoro, tutti!';document.getElementById('farewell-sub').textContent=DAYS[adminDayFilter].farewell;launchPodium();}
+async function showReportFromCloud(){await loadFromCloud();if(!allEntries.length){showAdminMsg('Nessun risultato.');return;}showReport();}
+async function exportCSVFromCloud(){await loadFromCloud();if(!allEntries.length){showAdminMsg('Nessun risultato.');return;}exportCSV();}
 function loadManual(){
-  allEntries=decodeEntries();
-  if(!allEntries.length){showAdminMsg('Nessun codice valido trovato.');return;}
-  document.getElementById('cloud-admin-status').innerHTML='<span style="color:var(--correct)">✅ '+allEntries.length+' risultati caricati da codici manuali</span>';
-  document.getElementById('cloud-entries-count').style.display='block';
-  document.getElementById('entries-count').textContent=allEntries.length;
+  const lines=document.getElementById('codes-input').value.trim().split('\n').map(l=>l.trim()).filter(l=>l.length>0);
+  const entries=[];for(const l of lines){try{entries.push(JSON.parse(decodeURIComponent(escape(atob(l)))));}catch(e){}}
+  allEntries=entries.filter(e=>e.n&&typeof e.s==='number'&&e.d===adminDayFilter).sort((a,b)=>b.s!==a.s?b.s-a.s:(a.avg||999)-(b.avg||999));
+  if(!allEntries.length){showAdminMsg('Nessun codice valido per '+DAYS[adminDayFilter].title);return;}
+  document.getElementById('cloud-admin-status').innerHTML='<span style="color:var(--correct)">✅ '+allEntries.length+' risultati caricati</span>';document.getElementById('cloud-entries-count').style.display='block';document.getElementById('entries-count').textContent=allEntries.length;
 }
 
-// PODIUM CEREMONY
+// PODIUM
 function launchPodium(){
-  if(allEntries.length<1){showAdminMsg('Nessun risultato trovato.');return;}
+  if(allEntries.length<1){showAdminMsg('Nessun risultato.');return;}
   showScreen('screen-podium');
-  // Reset
-  document.getElementById('countdown-area').style.display='flex';
-  document.getElementById('podium-stage').style.display='none';
-  document.getElementById('farewell').classList.remove('show');
+  document.getElementById('countdown-area').style.display='flex';document.getElementById('podium-stage').style.display='none';document.getElementById('farewell').classList.remove('show');
   ['slot-1','slot-2','slot-3'].forEach(id=>document.getElementById(id).classList.remove('revealed'));
-  // Countdown 5-4-3-2-1
-  let count=5;
-  const numEl=document.getElementById('countdown-num'),labelEl=document.getElementById('countdown-label');
-  numEl.textContent=count;labelEl.textContent='Classifica in arrivo...';
-  const cInterval=setInterval(()=>{
-    count--;
-    if(count>0){numEl.textContent=count;numEl.style.animation='none';void numEl.offsetHeight;numEl.style.animation='countPulse 1s ease';}
-    else{
-      clearInterval(cInterval);
-      document.getElementById('countdown-area').style.display='none';
-      document.getElementById('podium-stage').style.display='block';
-      revealPodium();
-    }
-  },1000);
+  let count=5;const numEl=document.getElementById('countdown-num');numEl.textContent=count;
+  const ci=setInterval(()=>{count--;if(count>0){numEl.textContent=count;numEl.style.animation='none';void numEl.offsetHeight;numEl.style.animation='countPulse 1s ease';}else{clearInterval(ci);document.getElementById('countdown-area').style.display='none';document.getElementById('podium-stage').style.display='block';revealPodium();}},1000);
 }
-
 function revealPodium(){
   const top3=allEntries.slice(0,3);
-  const fill=(idx,prefix)=>{
-    if(!top3[idx])return;
-    document.getElementById(prefix+'-emoji').textContent=AVATARS[top3[idx].a]?AVATARS[top3[idx].a].emoji:'❓';
-    document.getElementById(prefix+'-name').textContent=top3[idx].n;
-    document.getElementById(prefix+'-pts').textContent=top3[idx].s+' pts';
-  };
+  const fill=(idx,p)=>{if(!top3[idx])return;document.getElementById(p+'-emoji').textContent=AVATARS[top3[idx].a]?AVATARS[top3[idx].a].emoji:'❓';document.getElementById(p+'-name').textContent=top3[idx].n;document.getElementById(p+'-pts').textContent=top3[idx].s+' pts';};
   fill(0,'p1');fill(1,'p2');fill(2,'p3');
-  // Reveal: 3rd, then 2nd, then 1st
-  const delays=[
-    {id:'slot-3',ms:800},
-    {id:'slot-2',ms:2400},
-    {id:'slot-1',ms:4000}
-  ];
-  delays.forEach(d=>{
-    if(top3.length>=parseInt(d.id.split('-')[1])){
-      setTimeout(()=>document.getElementById(d.id).classList.add('revealed'),d.ms);
+  [{id:'slot-3',ms:800},{id:'slot-2',ms:2400},{id:'slot-1',ms:4000}].forEach(d=>{if(top3.length>=parseInt(d.id.split('-')[1]))setTimeout(()=>document.getElementById(d.id).classList.add('revealed'),d.ms);});
+  setTimeout(()=>{
+    document.getElementById('farewell').classList.add('show');
+    // Easter egg showcase
+    const eggEntries=allEntries.filter(e=>e.eggs&&e.eggs.length>0);
+    if(eggEntries.length>0){
+      let html='';
+      eggEntries.forEach(e=>{e.eggs.forEach(egg=>{html+=`<div style="margin-bottom:6px"><strong>${esc(e.n)}</strong> ha risposto: <em>"${esc(egg.ans)}"</em></div>`;});});
+      document.getElementById('egg-showcase-content').innerHTML=html;
+      document.getElementById('egg-showcase').style.display='block';
+      document.getElementById('egg-showcase-clean').style.display='none';
+    }else{
+      document.getElementById('egg-showcase').style.display='none';
+      document.getElementById('egg-showcase-clean').style.display='block';
     }
-  });
-  // Farewell
-  setTimeout(()=>document.getElementById('farewell').classList.add('show'),5500);
-}
-
-// CLUSTER HELPERS
-function getClusterScores(qa){
-  const scores={};
-  for(const key in CLUSTERS)scores[key]={ok:0,total:0};
-  QUESTIONS.forEach((q,i)=>{if(scores[q.g]){scores[q.g].total++;if(qa&&qa[i])scores[q.g].ok++;}});
-  return scores;
-}
-function clusterBadge(ok,total){
-  const pct=total?ok/total:0;
-  const cls=pct>=0.8?'cluster-ok':pct>=0.5?'cluster-warn':'cluster-bad';
-  return `<span class="cluster-badge ${cls}">${CLUSTERS[Object.keys(CLUSTERS).find(k=>true)]?'':''} ${ok}/${total}</span>`;
-}
-function clusterBadgeKeyed(key,ok,total){
-  const pct=total?ok/total:0;
-  const cls=pct>=0.8?'cluster-ok':pct>=0.5?'cluster-warn':'cluster-bad';
-  return `<span class="cluster-badge ${cls}">${CLUSTERS[key]} ${ok}/${total}</span>`;
+    // Fun question result
+    const funData=DAYS[adminDayFilter]?.fun;
+    const funVals=allEntries.filter(e=>e.r&&e.r.r_fun>0).map(e=>e.r.r_fun);
+    if(funData&&funVals.length>0){
+      const avg=(funVals.reduce((a,b)=>a+b,0)/funVals.length).toFixed(1);
+      document.getElementById('fun-result-q').textContent='"'+funData.q+'"';
+      document.getElementById('fun-result-val').textContent=avg+' / 5';
+      const comments={
+        day1:['Non mettono piede nel ristorante','Ci penserebbero','Prenotano un tavolo','Ordinano il menu completo','Ci vanno domani'],
+        day2:['Lo licenziano in tronco','Hanno qualche dubbio','Gli danno una chance','Lo promuovono','Gli danno le chiavi della cassaforte'],
+        day3:['Scappano dal progetto','Hanno delle riserve','Lo considerano','Lo vogliono nel team','Lo nominano Program Director'],
+        day4:['Restano ai surgelati','Ci pensano su','Si iscrivono al corso base','Frequentano regolarmente','Diventano sous-chef'],
+        day5:['Non sanno accendere il forno','Stanno studiando il menu','Preparano il business plan','Cercano il locale','Aprono domani a Bologna']
+      };
+      const idx=Math.min(4,Math.max(0,Math.round(parseFloat(avg))-1));
+      const dayComments=comments[adminDayFilter]||comments.day1;
+      document.getElementById('fun-result-label').textContent=dayComments[idx];
+      document.getElementById('fun-result').style.display='block';
+    }else{
+      document.getElementById('fun-result').style.display='none';
+    }
+  },5500);
 }
 
 // REPORT
+function getClusterScores(qa,dayKey){
+  const clusters=DAYS[dayKey]?.clusters||{};const qs=DAYS[dayKey]?.questions||[];
+  const scores={};for(const k in clusters)scores[k]={ok:0,total:0};
+  qs.forEach((q,i)=>{if(scores[q.g]){scores[q.g].total++;if(qa&&qa[i])scores[q.g].ok++;}});
+  return scores;
+}
+function clusterBadgeKeyed(label,ok,total){const pct=total?ok/total:0;const cls=pct>=.8?'cluster-ok':pct>=.5?'cluster-warn':'cluster-bad';return `<span class="cluster-badge ${cls}">${label} ${ok}/${total}</span>`;}
+
 function showReport(){
-  if(!allEntries.length){showAdminMsg('Nessun risultato trovato.');return;}
+  if(!allEntries.length)return;
+  const dayKey=adminDayFilter,clusters=DAYS[dayKey]?.clusters||{},qs=DAYS[dayKey]?.questions||[];
   const sec=document.getElementById('report-section');sec.style.display='block';
-  let html=`<table class="report-table"><thead><tr>
-    <th>#</th><th>Nome</th><th>Pts</th><th>Corrette</th><th>Cluster</th>
-    <th>Lez.</th><th>Compr.</th><th>Ritmo</th><th>Lab</th><th>Suggerimenti</th><th></th>
-  </tr></thead><tbody>`;
+  let html=`<h3 style="color:var(--green);margin:16px 0 8px;font-size:1rem">${DAYS[dayKey].title} – ${DAYS[dayKey].subtitle}</h3>`;
+  html+=`<table class="report-table"><thead><tr><th>#</th><th>Nome</th><th>Pts</th><th>Corrette</th><th>Cluster</th><th>Mat.</th><th>Compr.</th><th>Ritmo</th><th>Lab</th>`;
+  if(dayKey==='day5')html+=`<th>Sett.</th><th>Ready</th>`;
+  html+=`<th title="Domanda LPH divertente">🐔</th><th>Suggerimenti</th><th>🐔 Egg</th><th></th></tr></thead><tbody>`;
   allEntries.forEach((e,i)=>{
     const r=e.r||{},qa=e.qa||[];
-    const cs=getClusterScores(qa);
-    const clusterHtml=Object.keys(CLUSTERS).map(k=>clusterBadgeKeyed(k,cs[k].ok,cs[k].total)).join(' ');
-    html+=`<tr>
-      <td>${i+1}</td><td><strong>${esc(e.n)}</strong></td>
-      <td style="font-family:'JetBrains Mono',monospace;color:var(--green)">${e.s}</td>
-      <td>${e.c}/${e.t}</td>
-      <td>${qa.length?clusterHtml:'<span style="color:var(--text-muted)">n/a</span>'}</td>
-      <td>${stars(r.r_lesson)}</td><td>${stars(r.r_comprehension)}</td><td>${stars(r.r_engagement)}</td><td>${stars(r.r_lab)}</td>
-      <td class="report-suggestion">${esc(e.sg||'—')}</td>
-      <td>${qa.length?`<span class="detail-toggle" onclick="toggleDetail(${i})">dettaglio</span>`:''}</td>
-    </tr>`;
-    // Detail row (hidden by default)
+    const cs=getClusterScores(qa,dayKey);
+    const clH=Object.keys(clusters).map(k=>clusterBadgeKeyed(clusters[k],cs[k].ok,cs[k].total)).join(' ');
+    html+=`<tr><td>${i+1}</td><td><strong>${esc(e.n)}</strong></td><td style="font-family:'JetBrains Mono',monospace;color:var(--green)">${e.s}</td><td>${e.c}/${e.t}</td><td>${qa.length?clH:'<span style="color:var(--text-muted)">n/a</span>'}</td><td>${stars(r.r_lesson)}</td><td>${stars(r.r_comprehension)}</td><td>${stars(r.r_engagement)}</td><td>${stars(r.r_lab)}</td>`;
+    if(dayKey==='day5')html+=`<td>${stars(r.r_week)}</td><td>${stars(r.r_readiness)}</td>`;
+    html+=`<td style="text-align:center">${r.r_fun||'—'}</td><td class="report-suggestion">${esc(e.sg||'—')}</td><td style="text-align:center">${(e.eggs&&e.eggs.length)?'🐔 '+e.eggs.length:''}</td><td>${qa.length?`<span class="detail-toggle" onclick="toggleDetail(${i})">dettaglio</span>`:''}</td></tr>`;
     if(qa.length){
-      html+=`<tr class="detail-row" id="detail-${i}"><td colspan="11" class="detail-cell">`;
-      const grouped={};
-      QUESTIONS.forEach((q,qi)=>{if(!grouped[q.g])grouped[q.g]=[];grouped[q.g].push({qi,q,ok:qa[qi]});});
-      for(const gk in grouped){
-        html+=`<span class="q-group-label">${CLUSTERS[gk]}</span><div style="margin-bottom:8px">`;
-        grouped[gk].forEach(item=>{
-          const cls=item.ok?'q-ok':'q-no';
-          const icon=item.ok?'✓':'✗';
-          html+=`<span class="q-result ${cls}" title="${esc(item.q.q)}">${icon} Q${item.qi+1}</span>`;
-        });
-        html+=`</div>`;
-      }
+      const eggDetail=(e.eggs&&e.eggs.length)?'<div style="margin-top:8px"><span class="q-group-label">🐔 Easter Egg cliccati</span><div style="margin-bottom:8px">'+e.eggs.map(eg=>`<span class="q-result q-no" title="${esc(eg.ans)}">🐔 Q${eg.qi+1}</span>`).join('')+'</div></div>':'';
+      html+=`<tr class="detail-row" id="detail-${i}"><td colspan="${dayKey==='day5'?'16':'14'}" class="detail-cell">`;
+      const grouped={};qs.forEach((q,qi)=>{if(!grouped[q.g])grouped[q.g]=[];grouped[q.g].push({qi,q,ok:qa[qi]});});
+      for(const gk in grouped){html+=`<span class="q-group-label">${clusters[gk]||gk}</span><div style="margin-bottom:8px">`;grouped[gk].forEach(item=>{html+=`<span class="q-result ${item.ok?'q-ok':'q-no'}" title="${esc(item.q.q)}">${item.ok?'✓':'✗'} Q${item.qi+1}</span>`;});html+=`</div>`;}
+      html+=eggDetail;
       html+=`</td></tr>`;
     }
   });
-  // Averages row
   const n=allEntries.length;
   const avgR=key=>{const v=allEntries.filter(e=>e.r&&e.r[key]>0).map(e=>e.r[key]);return v.length?(v.reduce((a,b)=>a+b,0)/v.length).toFixed(1):'-';};
-  // Class-level cluster averages
-  const classCluster={};
-  for(const k in CLUSTERS)classCluster[k]={ok:0,total:0};
-  allEntries.forEach(e=>{
-    if(!e.qa)return;
-    const cs=getClusterScores(e.qa);
-    for(const k in cs){classCluster[k].ok+=cs[k].ok;classCluster[k].total+=cs[k].total;}
-  });
-  const clusterAvgHtml=Object.keys(CLUSTERS).map(k=>{
-    const c=classCluster[k];return c.total?clusterBadgeKeyed(k,c.ok,c.total):'';
-  }).join(' ');
-  html+=`<tr style="border-top:2px solid var(--border-light);font-weight:600">
-    <td></td><td>MEDIA (${n})</td>
-    <td style="color:var(--green)">${Math.round(allEntries.reduce((a,e)=>a+e.s,0)/n)}</td>
-    <td>${(allEntries.reduce((a,e)=>a+e.c,0)/n).toFixed(1)}/${QUESTIONS.length}</td>
-    <td>${clusterAvgHtml}</td>
-    <td>${avgR('r_lesson')}</td><td>${avgR('r_comprehension')}</td><td>${avgR('r_engagement')}</td><td>${avgR('r_lab')}</td>
-    <td></td><td></td>
-  </tr></tbody></table>`;
-  sec.innerHTML=html;
-  sec.scrollIntoView({behavior:'smooth'});
+  const classCluster={};for(const k in clusters)classCluster[k]={ok:0,total:0};
+  allEntries.forEach(e=>{if(!e.qa)return;const cs=getClusterScores(e.qa,dayKey);for(const k in cs){classCluster[k].ok+=cs[k].ok;classCluster[k].total+=cs[k].total;}});
+  const clAvg=Object.keys(clusters).map(k=>{const c=classCluster[k];return c.total?clusterBadgeKeyed(clusters[k],c.ok,c.total):'';}).join(' ');
+  const totalEggs=allEntries.reduce((a,e)=>(e.eggs?a+e.eggs.length:a),0);
+  html+=`<tr style="border-top:2px solid var(--border-light);font-weight:600"><td></td><td>MEDIA (${n})</td><td style="color:var(--green)">${Math.round(allEntries.reduce((a,e)=>a+e.s,0)/n)}</td><td>${(allEntries.reduce((a,e)=>a+e.c,0)/n).toFixed(1)}/${qs.length}</td><td>${clAvg}</td><td>${avgR('r_lesson')}</td><td>${avgR('r_comprehension')}</td><td>${avgR('r_engagement')}</td><td>${avgR('r_lab')}</td>`;
+  if(dayKey==='day5')html+=`<td>${avgR('r_week')}</td><td>${avgR('r_readiness')}</td>`;
+  html+=`<td style="text-align:center">${avgR('r_fun')}</td><td></td><td style="text-align:center">${totalEggs?'🐔 '+totalEggs:''}</td><td></td></tr></tbody></table>`;
+  sec.innerHTML=html;sec.scrollIntoView({behavior:'smooth'});
 }
-
-function toggleDetail(i){
-  const row=document.getElementById('detail-'+i);
-  if(row)row.classList.toggle('open');
-}
+function toggleDetail(i){const r=document.getElementById('detail-'+i);if(r)r.classList.toggle('open');}
 
 function exportCSV(){
   if(!allEntries.length)return;
-  const clusterKeys=Object.keys(CLUSTERS);
-  const h=['Pos','Nome','Punteggio','Corrette','Totale','Media_sec',
-    ...clusterKeys.map(k=>CLUSTERS[k]),
-    ...QUESTIONS.map((_,i)=>'Q'+(i+1)),
-    'V_Lezione','V_Comprensione','V_Ritmo','V_Lab','Suggerimenti'];
+  const dayKey=adminDayFilter,clusters=DAYS[dayKey]?.clusters||{},qs=DAYS[dayKey]?.questions||[];
+  const clKeys=Object.keys(clusters);
+  const h=['Pos','Nome','Giorno','Punteggio','Corrette','Totale','Media_sec',...clKeys.map(k=>clusters[k]),...qs.map((_,i)=>'Q'+(i+1)),'V_Materiale','V_Comprensione','V_Ritmo','V_Lab'];
+  if(dayKey==='day5')h.push('V_Settimana','V_Readiness');
+  h.push('LPH_Fun','Suggerimenti','EasterEgg_Count','EasterEgg_Risposte');
   const rows=allEntries.map((e,i)=>{
-    const r=e.r||{},qa=e.qa||[];
-    const cs=getClusterScores(qa);
-    return[i+1,e.n,e.s,e.c,e.t,e.avg||'',
-      ...clusterKeys.map(k=>qa.length?cs[k].ok+'/'+cs[k].total:''),
-      ...QUESTIONS.map((_,qi)=>qa[qi]!==undefined?(qa[qi]?'OK':'FAIL'):''),
-      r.r_lesson||'',r.r_comprehension||'',r.r_engagement||'',r.r_lab||'',
-      '"'+(e.sg||'').replace(/"/g,"'")+'"'];
+    const r=e.r||{},qa=e.qa||[];const cs=getClusterScores(qa,dayKey);
+    const row=[i+1,e.n,dayKey,e.s,e.c,e.t,e.avg||'',...clKeys.map(k=>qa.length?cs[k].ok+'/'+cs[k].total:''),...qs.map((_,qi)=>qa[qi]!==undefined?(qa[qi]?'OK':'FAIL'):''),r.r_lesson||'',r.r_comprehension||'',r.r_engagement||'',r.r_lab||''];
+    if(dayKey==='day5')row.push(r.r_week||'',r.r_readiness||'');
+    const eggTexts=(e.eggs||[]).map(eg=>eg.ans).join(' | ');
+    row.push(r.r_fun||'','"'+(e.sg||'').replace(/"/g,"'")+'"',(e.eggs||[]).length||'','"'+eggTexts.replace(/"/g,"'")+'"');return row;
   });
   const csv=h.join(';')+'\n'+rows.map(r=>r.join(';')).join('\n');
   const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='academy_quiz_day1_report.csv';a.click();
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='academy_quiz_'+dayKey+'_report.csv';a.click();
 }
 
 function stars(v){return v?'●'.repeat(v)+'○'.repeat(5-v):'<span style="color:var(--text-muted)">—</span>';}
