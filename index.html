@@ -257,9 +257,31 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text)}
     </div>
     <div id="week-survey" style="display:none">
       <div class="fb-card">
-        <div class="fb-card-title">Survey finale settimana</div>
-        <div class="rating-row"><div class="rating-label">Valutazione complessiva della settimana</div><div class="rating-stars" data-rating="r_week"></div></div>
-        <div class="rating-row"><div class="rating-label">Preparazione per il lavoro reale</div><div class="rating-stars" data-rating="r_readiness"></div></div>
+        <div class="fb-card-title">🎓 Fine settimana</div>
+        <div class="rating-row"><div class="rating-label">Lunedì non avevi mai aperto OneStream. Oggi, quanto ti senti più orientato?</div><div class="rating-stars" data-rating="r_week"></div></div>
+        <div class="rating-row" style="padding:2px 0"><div class="rating-label" style="font-size:.7rem;color:var(--text-muted)">1 = Ancora perso &nbsp;&nbsp; 5 = Ho le basi e so come crescere</div></div>
+        <div class="rating-row"><div class="rating-label">Userai il materiale (SharePoint, lab, Navigator) per approfondire nelle prossime settimane?</div><div class="rating-stars" data-rating="r_readiness"></div></div>
+        <div class="rating-row" style="padding:2px 0"><div class="rating-label" style="font-size:.7rem;color:var(--text-muted)">1 = Difficilmente &nbsp;&nbsp; 5 = Già nei preferiti</div></div>
+        <div class="rating-row"><div class="rating-label">Ti sei divertito questa settimana?</div><div class="rating-stars" data-rating="r_d5_fun"></div></div>
+        <div class="rating-row" style="padding:2px 0"><div class="rating-label" style="font-size:.7rem;color:var(--text-muted)">1 = Sopravvissuto &nbsp;&nbsp; 5 = Quando si rifà?</div></div>
+      </div>
+      <div style="margin-top:12px;padding:14px 18px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;font-size:.82rem;color:var(--text-muted);line-height:1.6;text-align:center;font-style:italic">
+        Ricorda: imparare è un processo continuo. Il materiale resta disponibile, Gus resta disponibile, il pollo resta disponibile. 🐔
+      </div>
+    </div>
+    <div id="day4-special" style="display:none">
+      <div class="fb-card" style="background:linear-gradient(135deg,rgba(205,127,50,.06),rgba(245,166,35,.03));border-color:rgba(205,127,50,.2)">
+        <div class="fb-card-title">📊 Il check del reporting</div>
+        <div class="rating-row"><div class="rating-label">Sei riuscito a creare la Cube View?</div>
+          <div style="display:flex;gap:6px">
+            <button class="star-btn" style="width:50px" onclick="setD4Bool(this,1)" data-rating="r_d4_cubeview">Sì</button>
+            <button class="star-btn" style="width:50px" onclick="setD4Bool(this,0)" data-rating="r_d4_cubeview_no">No</button>
+          </div>
+        </div>
+        <div class="rating-row"><div class="rating-label">Se il CFO di LPH vedesse il tuo report, come reagirebbe?</div><div class="rating-stars" data-rating="r_fun"></div></div>
+        <div class="rating-row" style="padding:2px 0"><div class="rating-label" style="font-size:.7rem;color:var(--text-muted)">1 = "Torna a friggere pollo" &nbsp;&nbsp; 5 = "Sei il nuovo Controller"</div></div>
+        <div class="rating-row"><div class="rating-label">Breaking Bad: ti senti vecchio dentro?</div><div class="rating-stars" data-rating="r_d4_bb"></div></div>
+        <div class="rating-row" style="padding:2px 0"><div class="rating-label" style="font-size:.7rem;color:var(--text-muted)">1 = Mai sentito nominare &nbsp;&nbsp; 5 = Vecchio dentro e fiero</div></div>
       </div>
     </div>
     <div id="fun-question" style="margin-top:16px;background:linear-gradient(135deg,rgba(205,127,50,.1),rgba(245,166,35,.06));border:1.5px solid rgba(205,127,50,.3);border-radius:12px;padding:20px 24px;display:none">
@@ -359,6 +381,39 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text)}
         <div id="fun-result-val" style="font-size:2rem;font-weight:800;color:var(--gold);font-family:'JetBrains Mono',monospace"></div>
         <div id="fun-result-label" style="font-size:.78rem;color:var(--text-muted);margin-top:4px"></div>
       </div>
+      <div id="day4-podium-stats" style="margin-top:20px;display:none;max-width:500px;margin-left:auto;margin-right:auto">
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+          <div style="flex:1;min-width:200px;padding:14px;background:var(--bg2);border:1.5px solid var(--border);border-radius:10px;text-align:center">
+            <div style="font-size:.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">📊 Cube View creata?</div>
+            <div id="d4-cv-stat" style="font-size:1.6rem;font-weight:800;color:var(--green);font-family:'JetBrains Mono',monospace"></div>
+            <div id="d4-cv-label" style="font-size:.78rem;color:var(--text-muted);margin-top:4px"></div>
+          </div>
+          <div style="flex:1;min-width:200px;padding:14px;background:var(--bg2);border:1.5px solid var(--border);border-radius:10px;text-align:center">
+            <div style="font-size:.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">📺 Breaking Bad</div>
+            <div id="d4-bb-stat" style="font-size:1.6rem;font-weight:800;color:var(--gold);font-family:'JetBrains Mono',monospace"></div>
+            <div id="d4-bb-label" style="font-size:.78rem;color:var(--text-muted);margin-top:4px"></div>
+          </div>
+        </div>
+      </div>
+      <div id="day5-podium-stats" style="margin-top:20px;display:none;max-width:500px;margin-left:auto;margin-right:auto">
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+          <div style="flex:1;min-width:140px;padding:14px;background:var(--bg2);border:1.5px solid var(--border);border-radius:10px;text-align:center">
+            <div style="font-size:.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">🎓 Crescita OneStream</div>
+            <div id="d5-growth-stat" style="font-size:1.6rem;font-weight:800;color:var(--green);font-family:'JetBrains Mono',monospace"></div>
+            <div id="d5-growth-label" style="font-size:.75rem;color:var(--text-muted);margin-top:4px"></div>
+          </div>
+          <div style="flex:1;min-width:140px;padding:14px;background:var(--bg2);border:1.5px solid var(--border);border-radius:10px;text-align:center">
+            <div style="font-size:.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">📚 Useranno il materiale?</div>
+            <div id="d5-material-stat" style="font-size:1.6rem;font-weight:800;color:var(--green);font-family:'JetBrains Mono',monospace"></div>
+            <div id="d5-material-label" style="font-size:.75rem;color:var(--text-muted);margin-top:4px"></div>
+          </div>
+          <div style="flex:1;min-width:140px;padding:14px;background:var(--bg2);border:1.5px solid var(--border);border-radius:10px;text-align:center">
+            <div style="font-size:.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">🎉 Divertimento</div>
+            <div id="d5-fun-stat" style="font-size:1.6rem;font-weight:800;color:var(--gold);font-family:'JetBrains Mono',monospace"></div>
+            <div id="d5-fun-label" style="font-size:.75rem;color:var(--text-muted);margin-top:4px"></div>
+          </div>
+        </div>
+      </div>
       <div style="margin-top:24px"><button class="btn btn-sm btn-outline" onclick="backToAdmin()">← Area facilitatore</button></div>
     </div>
   </div>
@@ -433,7 +488,7 @@ day3:{title:"Day 3",subtitle:"Workflow & Consolidamento",date:"25 Marzo",farewel
     {q:"Quale prerequisito è necessario prima di creare un Workflow?",a:["Aver configurato i report","Aver creato il Cube","Aver importato i dati storici","Aver definito le Business Rule"],c:1,t:20,g:"lab"}
 ]},
 day4:{title:"Day 4",subtitle:"Reporting & Dashboard",date:"26 Marzo",farewell:"A domani per il Day 5, ultimo giorno!",active:true,
-  fun:{q:"Se Gus aprisse una Academy di cucina, ti iscriveresti?",low:"Preferisco i surgelati",high:"Già iscritto"},
+  fun:{q:"Se il CFO di LPH vedesse il tuo report, come reagirebbe?",low:"Torna a friggere pollo",high:"Sei il nuovo Controller"},
   clusters:{approccio:"Approccio reporting",cubeview:"Cube View",bidash:"BI Viewer & Dashboard",lab:"Laboratorio"},
   questions:[
     {q:"Qual è il primo passo consigliato prima di costruire i report?",a:["Scrivere il codice delle Business Rule","Fare un Report Inventory: capire cosa serve al business prima di costruire","Creare tutte le Cube View possibili","Importare i dati di test"],c:1,t:25,g:"approccio"},
@@ -453,7 +508,7 @@ day4:{title:"Day 4",subtitle:"Reporting & Dashboard",date:"26 Marzo",farewell:"A
     {q:"Come si chiama la Cube View creata nel lab per il trend dei ricavi?",a:["Revenue_Analysis","MonthlyReport_v1","LosPollosHermanos_Trend","CFO_Dashboard_Main"],c:2,t:20,g:"lab"}
 ]},
 day5:{title:"Day 5",subtitle:"Budget, Finance Rules & Chiusura",date:"27 Marzo",farewell:"Complimenti! L'Academy è conclusa. In bocca al lupo!",active:true,
-  fun:{q:"Dopo questa settimana, quanto ti senti pronto per aprire la tua filiale di Los Pollos Hermanos?",low:"Non so accendere il forno",high:"Apro domani a Bologna"},
+  fun:{q:"Dopo questa settimana, quanto ti senti pronto per aprire la tua filiale di Los Pollos Hermanos?",low:"Non so accendere il forno",high:"Apro domani nella mia città"},
   clusters:{budget:"Budget & P&L",finance:"Finance Rules",calcoli:"Calcoli & Formule",settimana:"Settimana"},
   questions:[
     {q:"Qual è l'obiettivo dell'esercizio Budget del Day 5?",a:["Creare nuove dimensioni","Creare un report P&L di confronto Actual vs Budget","Configurare il workflow","Importare dati da un ERP"],c:1,t:20,g:"budget"},
@@ -476,7 +531,7 @@ day5:{title:"Day 5",subtitle:"Budget, Finance Rules & Chiusura",date:"27 Marzo",
 
 const AVATARS=[{emoji:"📊",name:"Analyst"},{emoji:"🏗️",name:"Architect"},{emoji:"🧪",name:"Tester"},{emoji:"🚀",name:"Builder"},{emoji:"🎯",name:"Strategist"},{emoji:"🔍",name:"Detective"},{emoji:"⚡",name:"Speedster"},{emoji:"🧠",name:"Thinker"}];
 
-let state={playerName:'',avatar:null,selectedDay:null,currentQ:0,score:0,correct:0,questionTimes:[],answers:[],eggs:[],timerInterval:null,answered:false,ratings:{r_lesson:0,r_comprehension:0,r_engagement:0,r_lab:0,r_week:0,r_readiness:0,r_fun:0},suggestion:''};
+let state={playerName:'',avatar:null,selectedDay:null,currentQ:0,score:0,correct:0,questionTimes:[],answers:[],eggs:[],timerInterval:null,answered:false,ratings:{r_lesson:0,r_comprehension:0,r_engagement:0,r_lab:0,r_week:0,r_readiness:0,r_fun:0,r_d4_cubeview:-1,r_d4_bb:0,r_d5_fun:0},suggestion:''};
 let allEntries=[];
 let adminDayFilter='day1';
 const ADMIN_PW='avvaleacademy2026';
@@ -551,6 +606,7 @@ function init(){
 }
 function checkReady(){document.getElementById('btn-start').disabled=!(document.getElementById('player-name').value.trim()&&state.avatar!==null);}
 function updateCharCount(){document.getElementById('char-count').textContent=document.getElementById('fb-suggestion').value.length;}
+function setD4Bool(btn,val){state.ratings.r_d4_cubeview=val;const row=btn.closest('.rating-row');row.querySelectorAll('.star-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');}
 function getQuestions(){return DAYS[state.selectedDay].questions;}
 function getClusters(){return DAYS[state.selectedDay].clusters;}
 
@@ -559,20 +615,23 @@ function startQuiz(){
   state.playerName=document.getElementById('player-name').value.trim();
   if(!state.playerName||state.avatar===null||!state.selectedDay)return;
   state.currentQ=0;state.score=0;state.correct=0;state.questionTimes=[];state.answers=[];state.eggs=[];
-  state.ratings={r_lesson:0,r_comprehension:0,r_engagement:0,r_lab:0,r_week:0,r_readiness:0,r_fun:0};
+  state.ratings={r_lesson:0,r_comprehension:0,r_engagement:0,r_lab:0,r_week:0,r_readiness:0,r_fun:0,r_d4_cubeview:-1,r_d4_bb:0,r_d5_fun:0};
   state.suggestion='';
   // Reset rating UI
   document.querySelectorAll('.star-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById('fb-suggestion').value='';document.getElementById('char-count').textContent='0';
-  // Show week survey only on day5
+  // Show/hide day-specific sections
   document.getElementById('week-survey').style.display=state.selectedDay==='day5'?'block':'none';
-  // Fun LPH question
+  document.getElementById('day4-special').style.display=state.selectedDay==='day4'?'block':'none';
+  // Fun LPH question: show for day1-3 and day5, hide for day4 (day4 has its own CFO question using r_fun)
   const funData=DAYS[state.selectedDay].fun;
-  if(funData){
+  if(funData&&state.selectedDay!=='day4'){
     document.getElementById('fun-question').style.display='block';
     document.getElementById('fun-q-text').textContent=funData.q;
     document.getElementById('fun-scale-low').textContent='1 = '+funData.low;
     document.getElementById('fun-scale-high').textContent='5 = '+funData.high;
+  }else{
+    document.getElementById('fun-question').style.display='none';
   }
   showScreen('screen-quiz');loadQuestion();
 }
@@ -704,8 +763,8 @@ function revealPodium(){
         day1:['Non mettono piede nel ristorante','Ci penserebbero','Prenotano un tavolo','Ordinano il menu completo','Ci vanno domani'],
         day2:['Lo licenziano in tronco','Hanno qualche dubbio','Gli danno una chance','Lo promuovono','Gli danno le chiavi della cassaforte'],
         day3:['Scappano dal progetto','Hanno delle riserve','Lo considerano','Lo vogliono nel team','Lo nominano Program Director'],
-        day4:['Restano ai surgelati','Ci pensano su','Si iscrivono al corso base','Frequentano regolarmente','Diventano sous-chef'],
-        day5:['Non sanno accendere il forno','Stanno studiando il menu','Preparano il business plan','Cercano il locale','Aprono domani a Bologna']
+        day4:['Li manda tutti a friggere pollo','Ha qualche perplessità','Dice "non male, continuate"','Li promuove a Financial Analyst','Li nomina Controller del gruppo'],
+        day5:['Non sanno accendere il forno','Stanno studiando il menu','Preparano il business plan','Cercano il locale','Aprono domani nella loro città']
       };
       const idx=Math.min(4,Math.max(0,Math.round(parseFloat(avg))-1));
       const dayComments=comments[adminDayFilter]||comments.day1;
@@ -713,6 +772,51 @@ function revealPodium(){
       document.getElementById('fun-result').style.display='block';
     }else{
       document.getElementById('fun-result').style.display='none';
+    }
+    // Day 4 special podium stats
+    if(adminDayFilter==='day4'){
+      const cvYes=allEntries.filter(e=>e.r&&e.r.r_d4_cubeview===1).length;
+      const cvTotal=allEntries.filter(e=>e.r&&e.r.r_d4_cubeview>=0).length;
+      const bbVals=allEntries.filter(e=>e.r&&e.r.r_d4_bb>0).map(e=>e.r.r_d4_bb);
+      const bbAvg=bbVals.length?(bbVals.reduce((a,b)=>a+b,0)/bbVals.length).toFixed(1):'—';
+      if(cvTotal>0){
+        document.getElementById('d4-cv-stat').textContent=cvYes+' / '+cvTotal;
+        document.getElementById('d4-cv-label').textContent=cvYes===cvTotal?'Tutti ce l\'hanno fatta!':cvYes>cvTotal/2?'Buon risultato!':'C\'è da lavorare...';
+      }
+      if(bbVals.length>0){
+        document.getElementById('d4-bb-stat').textContent=bbAvg+' / 5';
+        const bbIdx=Math.min(4,Math.max(0,Math.round(parseFloat(bbAvg))-1));
+        const bbComments=['Generazione Z pura','Qualcuno ha sentito parlare di Walter','Un po\' di nostalgia circola','Vecchi dentro in buona compagnia','La classe è ufficialmente vecchia dentro'];
+        document.getElementById('d4-bb-label').textContent=bbComments[bbIdx];
+      }
+      document.getElementById('day4-podium-stats').style.display=(cvTotal>0||bbVals.length>0)?'block':'none';
+    }else{
+      document.getElementById('day4-podium-stats').style.display='none';
+    }
+    // Day 5 special podium stats
+    if(adminDayFilter==='day5'){
+      const gVals=allEntries.filter(e=>e.r&&e.r.r_week>0).map(e=>e.r.r_week);
+      const mVals=allEntries.filter(e=>e.r&&e.r.r_readiness>0).map(e=>e.r.r_readiness);
+      const dVals=allEntries.filter(e=>e.r&&e.r.r_d5_fun>0).map(e=>e.r.r_d5_fun);
+      const avg=v=>v.length?(v.reduce((a,b)=>a+b,0)/v.length).toFixed(1):'—';
+      if(gVals.length>0){
+        const gA=avg(gVals);document.getElementById('d5-growth-stat').textContent=gA+' / 5';
+        const gIdx=Math.min(4,Math.max(0,Math.round(parseFloat(gA))-1));
+        document.getElementById('d5-growth-label').textContent=['Ancora persi','Si orientano un po\'','Sanno dove guardare','Ci mettono le mani','Hanno le basi e sanno come crescere'][gIdx];
+      }
+      if(mVals.length>0){
+        const mA=avg(mVals);document.getElementById('d5-material-stat').textContent=mA+' / 5';
+        const mIdx=Math.min(4,Math.max(0,Math.round(parseFloat(mA))-1));
+        document.getElementById('d5-material-label').textContent=['Forse no','Ogni tanto','Quando serve','Spesso','Già nei preferiti'][mIdx];
+      }
+      if(dVals.length>0){
+        const dA=avg(dVals);document.getElementById('d5-fun-stat').textContent=dA+' / 5';
+        const dIdx=Math.min(4,Math.max(0,Math.round(parseFloat(dA))-1));
+        document.getElementById('d5-fun-label').textContent=['Sopravvissuti a malapena','È stata dura','Non male','Ci siamo divertiti','Quando si rifà?!'][dIdx];
+      }
+      document.getElementById('day5-podium-stats').style.display=(gVals.length>0||mVals.length>0||dVals.length>0)?'block':'none';
+    }else{
+      document.getElementById('day5-podium-stats').style.display='none';
     }
   },5500);
 }
@@ -732,18 +836,20 @@ function showReport(){
   const sec=document.getElementById('report-section');sec.style.display='block';
   let html=`<h3 style="color:var(--green);margin:16px 0 8px;font-size:1rem">${DAYS[dayKey].title} – ${DAYS[dayKey].subtitle}</h3>`;
   html+=`<table class="report-table"><thead><tr><th>#</th><th>Nome</th><th>Pts</th><th>Corrette</th><th>Cluster</th><th>Mat.</th><th>Compr.</th><th>Ritmo</th><th>Lab</th>`;
-  if(dayKey==='day5')html+=`<th>Sett.</th><th>Ready</th>`;
-  html+=`<th title="Domanda LPH divertente">🐔</th><th>Suggerimenti</th><th>🐔 Egg</th><th></th></tr></thead><tbody>`;
+  if(dayKey==='day4')html+=`<th>CV?</th><th>BB</th>`;
+  if(dayKey==='day5')html+=`<th>Crescita</th><th>Materiale</th><th>Divert.</th>`;
+  html+=`<th title="Domanda LPH/CFO">🐔</th><th>Suggerimenti</th><th>🐔 Egg</th><th></th></tr></thead><tbody>`;
   allEntries.forEach((e,i)=>{
     const r=e.r||{},qa=e.qa||[];
     const cs=getClusterScores(qa,dayKey);
     const clH=Object.keys(clusters).map(k=>clusterBadgeKeyed(clusters[k],cs[k].ok,cs[k].total)).join(' ');
     html+=`<tr><td>${i+1}</td><td><strong>${esc(e.n)}</strong></td><td style="font-family:'JetBrains Mono',monospace;color:var(--green)">${e.s}</td><td>${e.c}/${e.t}</td><td>${qa.length?clH:'<span style="color:var(--text-muted)">n/a</span>'}</td><td>${stars(r.r_lesson)}</td><td>${stars(r.r_comprehension)}</td><td>${stars(r.r_engagement)}</td><td>${stars(r.r_lab)}</td>`;
-    if(dayKey==='day5')html+=`<td>${stars(r.r_week)}</td><td>${stars(r.r_readiness)}</td>`;
+    if(dayKey==='day4')html+=`<td style="text-align:center">${r.r_d4_cubeview===1?'✅':r.r_d4_cubeview===0?'❌':'—'}</td><td>${stars(r.r_d4_bb)}</td>`;
+    if(dayKey==='day5')html+=`<td>${stars(r.r_week)}</td><td>${stars(r.r_readiness)}</td><td>${stars(r.r_d5_fun)}</td>`;
     html+=`<td style="text-align:center">${r.r_fun||'—'}</td><td class="report-suggestion">${esc(e.sg||'—')}</td><td style="text-align:center">${(e.eggs&&e.eggs.length)?'🐔 '+e.eggs.length:''}</td><td>${qa.length?`<span class="detail-toggle" onclick="toggleDetail(${i})">dettaglio</span>`:''}</td></tr>`;
     if(qa.length){
       const eggDetail=(e.eggs&&e.eggs.length)?'<div style="margin-top:8px"><span class="q-group-label">🐔 Easter Egg cliccati</span><div style="margin-bottom:8px">'+e.eggs.map(eg=>`<span class="q-result q-no" title="${esc(eg.ans)}">🐔 Q${eg.qi+1}</span>`).join('')+'</div></div>':'';
-      html+=`<tr class="detail-row" id="detail-${i}"><td colspan="${dayKey==='day5'?'16':'14'}" class="detail-cell">`;
+      html+=`<tr class="detail-row" id="detail-${i}"><td colspan="${dayKey==='day5'?'17':dayKey==='day4'?'16':'14'}" class="detail-cell">`;
       const grouped={};qs.forEach((q,qi)=>{if(!grouped[q.g])grouped[q.g]=[];grouped[q.g].push({qi,q,ok:qa[qi]});});
       for(const gk in grouped){html+=`<span class="q-group-label">${clusters[gk]||gk}</span><div style="margin-bottom:8px">`;grouped[gk].forEach(item=>{html+=`<span class="q-result ${item.ok?'q-ok':'q-no'}" title="${esc(item.q.q)}">${item.ok?'✓':'✗'} Q${item.qi+1}</span>`;});html+=`</div>`;}
       html+=eggDetail;
@@ -757,7 +863,8 @@ function showReport(){
   const clAvg=Object.keys(clusters).map(k=>{const c=classCluster[k];return c.total?clusterBadgeKeyed(clusters[k],c.ok,c.total):'';}).join(' ');
   const totalEggs=allEntries.reduce((a,e)=>(e.eggs?a+e.eggs.length:a),0);
   html+=`<tr style="border-top:2px solid var(--border-light);font-weight:600"><td></td><td>MEDIA (${n})</td><td style="color:var(--green)">${Math.round(allEntries.reduce((a,e)=>a+e.s,0)/n)}</td><td>${(allEntries.reduce((a,e)=>a+e.c,0)/n).toFixed(1)}/${qs.length}</td><td>${clAvg}</td><td>${avgR('r_lesson')}</td><td>${avgR('r_comprehension')}</td><td>${avgR('r_engagement')}</td><td>${avgR('r_lab')}</td>`;
-  if(dayKey==='day5')html+=`<td>${avgR('r_week')}</td><td>${avgR('r_readiness')}</td>`;
+  if(dayKey==='day4'){const cvYes=allEntries.filter(e=>e.r&&e.r.r_d4_cubeview===1).length;html+=`<td style="text-align:center">${cvYes}/${n}</td><td>${avgR('r_d4_bb')}</td>`;}
+  if(dayKey==='day5')html+=`<td>${avgR('r_week')}</td><td>${avgR('r_readiness')}</td><td>${avgR('r_d5_fun')}</td>`;
   html+=`<td style="text-align:center">${avgR('r_fun')}</td><td></td><td style="text-align:center">${totalEggs?'🐔 '+totalEggs:''}</td><td></td></tr></tbody></table>`;
   sec.innerHTML=html;sec.scrollIntoView({behavior:'smooth'});
 }
@@ -768,12 +875,14 @@ function exportCSV(){
   const dayKey=adminDayFilter,clusters=DAYS[dayKey]?.clusters||{},qs=DAYS[dayKey]?.questions||[];
   const clKeys=Object.keys(clusters);
   const h=['Pos','Nome','Giorno','Punteggio','Corrette','Totale','Media_sec',...clKeys.map(k=>clusters[k]),...qs.map((_,i)=>'Q'+(i+1)),'V_Materiale','V_Comprensione','V_Ritmo','V_Lab'];
-  if(dayKey==='day5')h.push('V_Settimana','V_Readiness');
+  if(dayKey==='day4')h.push('CubeView_OK','BreakingBad');
+  if(dayKey==='day5')h.push('Crescita_OS','Userai_Materiale','Divertimento');
   h.push('LPH_Fun','Suggerimenti','EasterEgg_Count','EasterEgg_Risposte');
   const rows=allEntries.map((e,i)=>{
     const r=e.r||{},qa=e.qa||[];const cs=getClusterScores(qa,dayKey);
     const row=[i+1,e.n,dayKey,e.s,e.c,e.t,e.avg||'',...clKeys.map(k=>qa.length?cs[k].ok+'/'+cs[k].total:''),...qs.map((_,qi)=>qa[qi]!==undefined?(qa[qi]?'OK':'FAIL'):''),r.r_lesson||'',r.r_comprehension||'',r.r_engagement||'',r.r_lab||''];
-    if(dayKey==='day5')row.push(r.r_week||'',r.r_readiness||'');
+    if(dayKey==='day4')row.push(r.r_d4_cubeview===1?'SI':r.r_d4_cubeview===0?'NO':'',r.r_d4_bb||'');
+    if(dayKey==='day5')row.push(r.r_week||'',r.r_readiness||'',r.r_d5_fun||'');
     const eggTexts=(e.eggs||[]).map(eg=>eg.ans).join(' | ');
     row.push(r.r_fun||'','"'+(e.sg||'').replace(/"/g,"'")+'"',(e.eggs||[]).length||'','"'+eggTexts.replace(/"/g,"'")+'"');return row;
   });
